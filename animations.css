@@ -1,0 +1,211 @@
+/* ============================================
+   GJ 06 — Animations & Interactions
+   ============================================ */
+
+/* ---- Nav slide in ---- */
+@keyframes navSlideDown {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ---- Hero text stagger ---- */
+@keyframes heroWordIn {
+  from { opacity: 0; transform: translateY(40px) skewY(3deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+
+/* ---- Menu card hover ---- */
+.menu-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.menu-card:hover, .menu-card:active {
+  transform: translate(-4px, -4px) rotate(-0.5deg);
+  box-shadow: 6px 6px 0px var(--black);
+}
+
+/* ---- Gallery item hover ---- */
+.gallery-item {
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+.gallery-item:hover { transform: scale(1.02) rotate(0.5deg); }
+
+/* ---- Hamburger menu open/close ---- */
+.nav-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.nav-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.nav-menu-overlay a {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 12vw, 80px);
+  color: var(--white);
+  letter-spacing: 0.05em;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-menu-overlay a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+.nav-menu-overlay a:hover::after { width: 100%; }
+
+.nav-menu-overlay .menu-social {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+}
+.nav-menu-overlay .menu-social a {
+  font-size: 24px;
+}
+.nav-menu-overlay .menu-social a::after { display: none; }
+
+/* ---- Comic panel reveal ---- */
+@keyframes panelSlide {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.comic-panel.visible {
+  animation: panelSlide 0.5s ease forwards;
+}
+
+/* ---- Wobbly underline ---- */
+.wobbly-underline {
+  position: relative;
+  display: inline-block;
+}
+.wobbly-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--black);
+  border-radius: 2px 4px 1px 3px / 3px 1px 4px 2px;
+}
+
+/* ---- Floating doodle elements ---- */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0) rotate(4deg); }
+  50% { transform: translateY(-8px) rotate(-2deg); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-16px) rotate(3deg); }
+}
+.float-1 { animation: float1 4s ease-in-out infinite; }
+.float-2 { animation: float2 5s ease-in-out 0.5s infinite; }
+.float-3 { animation: float3 6s ease-in-out 1s infinite; }
+
+/* ---- Section transition strip ---- */
+.strip-transition {
+  width: 100%;
+  line-height: 0;
+  display: block;
+  overflow: hidden;
+}
+.strip-transition svg {
+  display: block;
+  width: 100%;
+}
+
+/* ---- CTA section pulse ---- */
+@keyframes ctaPulse {
+  0%, 100% { letter-spacing: 0.05em; }
+  50% { letter-spacing: 0.08em; }
+}
+.cta-headline:hover {
+  animation: ctaPulse 0.8s ease infinite;
+}
+
+/* ---- Instagram strip scroll ---- */
+.insta-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.insta-strip::-webkit-scrollbar { display: none; }
+.insta-strip > * { scroll-snap-align: start; flex-shrink: 0; }
+
+/* ---- Marquee / ticker ---- */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeScroll 20s linear infinite;
+}
+.marquee-inner:hover { animation-play-state: paused; }
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 3px solid var(--black);
+  border-bottom: 3px solid var(--black);
+  padding: 14px 0;
+  background: var(--black);
+}
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4vw, 26px);
+  color: var(--white);
+  padding: 0 32px;
+  letter-spacing: 0.1em;
+}
+.marquee-dot {
+  color: var(--chai);
+  padding: 0 8px;
+  font-size: 20px;
+}
+
+/* ---- Page transition ---- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 9000;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.page-transition.enter {
+  animation: pageIn 0.4s ease forwards;
+}
+.page-transition.exit {
+  animation: pageOut 0.4s ease forwards;
+}
+@keyframes pageIn {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
+@keyframes pageOut {
+  from { transform: scaleY(1); transform-origin: top; }
+  to   { transform: scaleY(0); transform-origin: top; }
+}

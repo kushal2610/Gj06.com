@@ -1,0 +1,244 @@
+{
+  "currency": "$",
+  "note": "Prices in AUD. Extra shot, syrups, different milks $0.60. Upsize $1.",
+  "categories": [
+    {
+      "id": "chai",
+      "name": "Chai Ki Chuski",
+      "icon": "🫖",
+      "subtitle": "All our chais are freshly made and are simply the best!",
+      "items": [
+        { "id": "c1", "name": "Cutting Chai", "desc": "The classic half-cup chai, strong and bold — the way chai was always meant to be.", "price": 4, "tag": "bestseller" },
+        { "id": "c2", "name": "Masala Chai", "desc": "Our signature blend of spices brewed slow and fresh every single time.", "price": 5, "tag": "bestseller" },
+        { "id": "c3", "name": "Ginger (Adarak) Chai", "desc": "Fresh ginger brewed deep into every sip. Warming and bold.", "price": 5, "tag": "" },
+        { "id": "c4", "name": "Mint (Phudina) Chai", "desc": "Fresh mint leaves steeped with our house chai blend. Cool and refreshing.", "price": 5, "tag": "" },
+        { "id": "c5", "name": "Cardamom (Elaichi) Chai", "desc": "Fragrant cardamom pods slow-brewed for a deeply aromatic cup.", "price": 5, "tag": "" },
+        { "id": "c6", "name": "Masala Coffee", "desc": "Our spice blend meets rich coffee — an unexpected, unforgettable combo.", "price": 6, "tag": "new" }
+      ]
+    },
+    {
+      "id": "coffee",
+      "name": "Coffee",
+      "icon": "☕",
+      "subtitle": "Extra shot, syrups, different milks $0.60 · Upsize $1",
+      "items": [
+        { "id": "cf1", "name": "Long Black", "desc": "Bold, clean espresso poured over hot water. No fuss.", "price": 4.5, "tag": "" },
+        { "id": "cf2", "name": "Flat White", "desc": "Silky microfoam over a double ristretto. The Australian classic.", "price": 4.5, "tag": "bestseller" },
+        { "id": "cf3", "name": "Latte", "desc": "Smooth espresso with steamed milk and a light foam top.", "price": 4.5, "tag": "" },
+        { "id": "cf4", "name": "Cappuccino", "desc": "Equal parts espresso, steamed milk, and thick foam. The OG.", "price": 4.5, "tag": "" },
+        { "id": "cf5", "name": "Hot Chocolate", "desc": "Rich, velvety house-made hot chocolate. Pure comfort.", "price": 5, "tag": "" },
+        { "id": "cf6", "name": "Chai Latte", "desc": "Our masala chai blend meets steamed milk. The best of both worlds.", "price": 5, "tag": "bestseller" },
+        { "id": "cf7", "name": "Piccolo", "desc": "Ristretto in a small glass with a dash of milk. Intense and beautiful.", "price": 4, "tag": "" },
+        { "id": "cf8", "name": "Espresso", "desc": "Single shot, pure and unapologetic.", "price": 4, "tag": "" },
+        { "id": "cf9", "name": "Ristretto", "desc": "A shorter, sweeter, more concentrated shot of espresso.", "price": 4, "tag": "" },
+        { "id": "cf10", "name": "Macchiato", "desc": "Espresso marked with a dollop of foam. Sharp and refined.", "price": 4, "tag": "" },
+        { "id": "cf11", "name": "Dirty Chai", "desc": "Espresso shot poured straight into masala chai. Dangerously good.", "price": 5.5, "tag": "new" },
+        { "id": "cf12", "name": "Mocha", "desc": "Espresso meets chocolate meets milk. The holy trinity.", "price": 5.5, "tag": "" },
+        { "id": "cf13", "name": "Affogato", "desc": "Vanilla ice cream drowned in a hot espresso shot.", "price": 9, "tag": "" },
+        { "id": "cf14", "name": "Babyccino", "desc": "Frothy steamed milk for the little ones. No coffee, all fun.", "price": 1, "tag": "" }
+      ]
+    },
+    {
+      "id": "english-tea",
+      "name": "English Tea",
+      "icon": "🫖",
+      "subtitle": "Upsize $1",
+      "items": [
+        { "id": "et1", "name": "Camomile Tea", "desc": "Gentle and soothing. Perfect to slow the world down.", "price": 4, "tag": "" },
+        { "id": "et2", "name": "English Breakfast", "desc": "Bold, malty, and classic. Milk on the side.", "price": 4, "tag": "" },
+        { "id": "et3", "name": "Lemon Ginger", "desc": "Zesty lemon with fresh ginger. A hug in a cup.", "price": 4, "tag": "" },
+        { "id": "et4", "name": "Paper Mint", "desc": "Cool, clean peppermint. Refreshing and light.", "price": 4, "tag": "" },
+        { "id": "et5", "name": "Earl Grey", "desc": "Bergamot-scented black tea. Timeless and elegant.", "price": 4, "tag": "" }
+      ]
+    },
+    {
+      "id": "cold-brew",
+      "name": "Cold Brew",
+      "icon": "🧊",
+      "subtitle": "Extra shot, syrups, different milks $0.60 · Upsize $1",
+      "items": [
+        { "id": "cb1", "name": "Iced Coffee", "desc": "Cold brew poured over ice with a splash of milk.", "price": 8, "tag": "" },
+        { "id": "cb2", "name": "Iced Mocha", "desc": "Cold brew meets chocolate. Rich and refreshing.", "price": 8, "tag": "" },
+        { "id": "cb3", "name": "Iced Latte", "desc": "Smooth espresso over ice with cold milk.", "price": 8, "tag": "bestseller" },
+        { "id": "cb4", "name": "Iced Long Black", "desc": "Straight espresso over ice. Bold and clean.", "price": 8, "tag": "" },
+        { "id": "cb5", "name": "Iced Chocolate", "desc": "Rich chocolate sauce with cold milk over ice.", "price": 8, "tag": "" },
+        { "id": "cb6", "name": "Iced Chai Latte", "desc": "Our masala chai blend chilled over ice with milk.", "price": 8, "tag": "bestseller" },
+        { "id": "cb7", "name": "Cold Coffee (Indian Style)", "desc": "Sweetened cold coffee blended thick — street-style and utterly addictive.", "price": 11, "tag": "new" }
+      ]
+    },
+    {
+      "id": "thickshakes",
+      "name": "Thickshakes",
+      "icon": "🥤",
+      "items": [
+        { "id": "ts1", "name": "Oreo Thickshake", "desc": "Thick, cold, and loaded with crushed Oreos.", "price": 14.9, "tag": "bestseller" },
+        { "id": "ts2", "name": "Kit-Kat Thickshake", "desc": "Creamy shake with chunky Kit-Kat pieces blended right in.", "price": 14.9, "tag": "" },
+        { "id": "ts3", "name": "Brownie Thickshake", "desc": "Fudgy brownie blended into a rich, chocolatey shake.", "price": 14.9, "tag": "" },
+        { "id": "ts4", "name": "Strawberry Thickshake", "desc": "Fresh strawberry blended thick and creamy. A classic.", "price": 14.9, "tag": "" },
+        { "id": "ts5", "name": "Mango Thickshake", "desc": "Sun-ripened mango blended into pure tropical heaven.", "price": 14.9, "tag": "" }
+      ]
+    },
+    {
+      "id": "mocktails",
+      "name": "Mocktails",
+      "icon": "🍹",
+      "items": [
+        { "id": "mk1", "name": "Mango Fizz", "desc": "Juicy mango with fresh lemonade. Sweet, tangy, and fizzy.", "price": 12.9, "tag": "" },
+        { "id": "mk2", "name": "Lime Minty Splash", "desc": "Muddled mint, tangy lemon, and sparkling fizz served ice-cold.", "price": 12.9, "tag": "bestseller" },
+        { "id": "mk3", "name": "Blush Melon Refresher", "desc": "Juicy watermelon, fresh mint, and a splash of lemon with sparkling fizz.", "price": 12.9, "tag": "" },
+        { "id": "mk4", "name": "Pink Lychee Rosetta", "desc": "Rose essence and sweet lychee, chilled for a floral, refreshing sip.", "price": 12.9, "tag": "new" }
+      ]
+    },
+    {
+      "id": "juices",
+      "name": "Juice & Cold Drinks",
+      "icon": "🥤",
+      "subtitle": "Without ice $1 · Upsize $2",
+      "items": [
+        { "id": "j1", "name": "Immunizing Orange", "desc": "Orange, carrot, lime, ginger, red apple. Your daily armour.", "price": 9, "tag": "" },
+        { "id": "j2", "name": "Red Cleanser", "desc": "Beetroot, red apple, carrot, pear, lime. Earthy and vibrant.", "price": 9, "tag": "" },
+        { "id": "j3", "name": "Green Detox Juice", "desc": "Cucumber, green apple, spinach, lime, mint. Flat and fresh.", "price": 9, "tag": "" },
+        { "id": "j4", "name": "Mango Lassi", "desc": "Creamy yoghurt blended with ripe mango. The crowd favourite.", "price": 7, "tag": "bestseller" },
+        { "id": "j5", "name": "Salted Lassi", "desc": "Tangy yoghurt drink with a pinch of salt. Simple and perfect.", "price": 6, "tag": "" },
+        { "id": "j6", "name": "Jeera Soda", "desc": "Cumin-spiced sparkling soda. Surprisingly addictive.", "price": 5, "tag": "" },
+        { "id": "j7", "name": "Cold Drink Can", "desc": "Coke, Sprite, Fanta — your classic cold sip.", "price": 3.75, "tag": "" },
+        { "id": "j8", "name": "Water Bottle", "desc": "", "price": 3, "tag": "" }
+      ]
+    },
+    {
+      "id": "street",
+      "name": "Indian Street Style",
+      "icon": "🌶️",
+      "items": [
+        { "id": "s1", "name": "Bombay Style Vadapav", "desc": "Spicy potato fritter in gram flour batter, deep-fried, served in a toasted bun with garlic chutney and fried green chilli.", "price": 7.5, "tag": "bestseller" },
+        { "id": "s2", "name": "Masala Vadapav", "desc": "Spiced potato fritter in a butter-toasted bun with tangy garlic chutney, green chilli, and special house masala.", "price": 8.5, "tag": "" },
+        { "id": "s3", "name": "Cheese Vadapav", "desc": "Mumbai's iconic vada pav with a cheesy twist — spicy potato fritter with melted cheese in a toasted bun.", "price": 9.5, "tag": "" },
+        { "id": "s4", "name": "Schezwan Vadapav", "desc": "A fiery Indo-Chinese fusion — spicy potato fritter with Schezwan sauce and garlic chutney.", "price": 9.5, "tag": "spicy" },
+        { "id": "s5", "name": "Italian Vadapav", "desc": "Crispy potato vada with zesty Italian herbs, tangy special sauce, and melted cheese in a toasted bun.", "price": 10.5, "tag": "new" },
+        { "id": "s6", "name": "Crispy Kanda Pav", "desc": "Crispy onion fritters spiced with Indian masalas, served in a butter-toasted pav with tangy chutneys.", "price": 7.5, "tag": "" },
+        { "id": "s7", "name": "Vada (2pcs)", "desc": "Golden-fried spiced potato fritter — crispy outside, soft inside. A classic Mumbai snack.", "price": 8, "tag": "" },
+        { "id": "s8", "name": "Mirchi Bhajiya (2pcs)", "desc": "Large green chillies in spiced gram flour batter, deep-fried golden. For heat lovers.", "price": 8, "tag": "spicy" },
+        { "id": "s9", "name": "Dabeli", "desc": "Sweet, spicy, tangy Gujarati street snack — mashed potato with pomegranate, crunchy peanuts, and sev.", "price": 7.9, "tag": "" },
+        { "id": "s10", "name": "Katka Dabeli", "desc": "A fiery twist on the classic Dabeli with Katka masala. Served with crunchy peanuts, sev, and tangy chutneys.", "price": 9.9, "tag": "spicy" },
+        { "id": "s11", "name": "Cheese Dabeli", "desc": "Classic spicy Dabeli loaded with melted cheese, peanuts, sev, and tangy chutneys.", "price": 8.9, "tag": "" },
+        { "id": "s12", "name": "Samosa (2pcs)", "desc": "Golden flaky pastry filled with spiced mashed potatoes and peas, deep-fried to perfection.", "price": 7, "tag": "bestseller" },
+        { "id": "s13", "name": "Bun Samosa", "desc": "Spiced potato filling encased in a soft buttered bun with tangy chutneys — fusion street perfection.", "price": 8.5, "tag": "" },
+        { "id": "s14", "name": "Veg. Cheese Frankie", "desc": "Soft flatbread rolled with spiced veggies, melted cheese, and tangy sauces.", "price": 11.9, "tag": "" },
+        { "id": "s15", "name": "Cheese Paneer Frankie", "desc": "Soft flatbread stuffed with spiced paneer, melted cheese, fresh veggies, and tangy chutneys.", "price": 12.9, "tag": "" },
+        { "id": "s16", "name": "Maggie Masala", "desc": "Classic instant noodles tossed in a spicy, tangy masala. A quick and comforting street favourite.", "price": 7.9, "tag": "" },
+        { "id": "s17", "name": "Masala Aloo Toast Sandwich", "desc": "Crunchy toasted bread with spiced mashed potatoes, tangy chutneys, and fresh herbs.", "price": 10.9, "tag": "" },
+        { "id": "s18", "name": "Veg. Bombay Sandwich", "desc": "Layers of potato, onion, cucumber, tomato, beetroot, and mint chutney stacked between buttered white bread, toasted to perfection.", "price": 11.9, "tag": "bestseller" }
+      ]
+    },
+    {
+      "id": "snacks",
+      "name": "Snacks & More",
+      "icon": "🥐",
+      "items": [
+        { "id": "sn1", "name": "Veg. Bombay Grilled Sandwich", "desc": "Buttered bread grilled golden, filled with fresh veggies and melted cheese.", "price": 12.9, "tag": "" },
+        { "id": "sn2", "name": "GJ06 Special Club Sandwich", "desc": "Triple-layered toasted bread stacked with fresh veggies, cheese, and tangy sauces.", "price": 14.9, "tag": "bestseller" },
+        { "id": "sn3", "name": "Veg. Aloo Puff", "desc": "Flaky pastry filled with spicy, flavourful mashed potatoes — bursting with Indian street-food vibes.", "price": 5.9, "tag": "" },
+        { "id": "sn4", "name": "Sev Onion Chutney Puff", "desc": "Flaky pastry stuffed with spicy onion chutney, topped with crunchy sev.", "price": 7.9, "tag": "" },
+        { "id": "sn5", "name": "Paneer Puff", "desc": "Flaky pastry filled with spiced, soft paneer cubes. Savory and satisfying.", "price": 7.9, "tag": "" },
+        { "id": "sn6", "name": "Mayo Puff", "desc": "Buttery flaky pastry with a creamy mayo and spiced mix.", "price": 7.9, "tag": "" },
+        { "id": "sn7", "name": "Schezwan Cheese Puff", "desc": "Crispy flaky pastry stuffed with cheese and fiery Schezwan-spiced sauce.", "price": 7.9, "tag": "spicy" },
+        { "id": "sn8", "name": "Jalapeno Cheese Puff", "desc": "Flaky pastry with melted cheese and fiery jalapeños.", "price": 7.9, "tag": "spicy" },
+        { "id": "sn9", "name": "Handvo", "desc": "Savory steamed lentil and rice cake mixed with veggies and spices, crisped to perfection.", "price": 7.9, "tag": "" },
+        { "id": "sn10", "name": "Indori Poha", "desc": "Fluffy flattened rice with mustard seeds, curry leaves, and spices, topped with sev and a squeeze of lemon.", "price": 9.9, "tag": "" },
+        { "id": "sn11", "name": "Tari Poha", "desc": "Soft flattened rice simmered in a tangy onion garlic gravy with spices.", "price": 9.9, "tag": "" },
+        { "id": "sn12", "name": "Sev Khamni", "desc": "Steamed, spiced chickpea flour crumble topped with crunchy sev, tangy chutneys, and fresh herbs.", "price": 11.9, "tag": "" },
+        { "id": "sn13", "name": "Thepla (2pcs)", "desc": "Thin, soft Indian flatbread made with spiced fenugreek leaves and whole wheat.", "price": 7.9, "tag": "" },
+        { "id": "sn14", "name": "Bhungda Bateta", "desc": "Spicy fried potatoes with crispy yellow fryms. A bold street-style delicacy.", "price": 11.9, "tag": "spicy" },
+        { "id": "sn15", "name": "Pav Bhaji", "desc": "Iconic street food — buttery spiced vegetable mash served with toasted pav buns, onions, and lemon.", "price": 15.9, "tag": "bestseller" },
+        { "id": "sn16", "name": "Sev Usal", "desc": "Spicy white pea curry topped with crispy sev, onions, and fresh coriander.", "price": 14.9, "tag": "" },
+        { "id": "sn17", "name": "Samosa Usal", "desc": "A crispy samosa served over spicy white pea curry, topped with sev, onions, and chutneys.", "price": 14.9, "tag": "" },
+        { "id": "sn18", "name": "Sev Tari", "desc": "A spicy, tangy gravy topped with crispy sev — a comforting Gujarati classic.", "price": 14.9, "tag": "" }
+      ]
+    },
+    {
+      "id": "pizza-burger",
+      "name": "Pizza & Burger",
+      "icon": "🍕",
+      "items": [
+        { "id": "pb1", "name": "Garlic Bread", "desc": "Classic buttery garlic bread, golden and crispy.", "price": 6.9, "tag": "" },
+        { "id": "pb2", "name": "Cheesey Garlic Bread", "desc": "Garlic bread loaded with melted cheese. The upgrade you needed.", "price": 8.9, "tag": "bestseller" },
+        { "id": "pb3", "name": "GJ06 Special Garlic Bread", "desc": "Garlic bread topped with marinated paneer, onion, capsicum, olives, and herbs.", "price": 10.9, "tag": "new" },
+        { "id": "pb4", "name": "Fries (R/L)", "desc": "Crispy golden fries. Regular or large.", "price": 7.9, "tag": "" },
+        { "id": "pb5", "name": "Loaded Fries", "desc": "Cheesy seasoned fries with jalapeños and onion, topped with signature sauces.", "price": 13.9, "tag": "bestseller" },
+        { "id": "pb6", "name": "Peri-Peri Fries (R/L)", "desc": "Crispy fries tossed in our spicy peri-peri seasoning.", "price": 8.9, "tag": "spicy" },
+        { "id": "pb7", "name": "Sweet Potato Fries", "desc": "Lightly seasoned sweet potato fries. Naturally delicious.", "price": 8.9, "tag": "" },
+        { "id": "pb8", "name": "Cheese Pizza", "desc": "Simple, generous, perfect. A classic four-cheese pizza.", "price": 11.9, "tag": "" },
+        { "id": "pb9", "name": "Margherita Pizza", "desc": "San Marzano tomato, fresh basil, quality mozzarella. The original.", "price": 12.9, "tag": "" },
+        { "id": "pb10", "name": "Veg. Pizza", "desc": "11\" — Fresh dough topped with onions, capsicum, tomatoes, black olives, and aromatic herbs.", "price": 14.9, "tag": "" },
+        { "id": "pb11", "name": "GJ06 Signature Pizza", "desc": "11\" — Fresh dough loaded with marinated paneer, onions, capsicum, jalapeños, pineapple chunks, and herbs.", "price": 15.9, "tag": "bestseller" },
+        { "id": "pb12", "name": "Veg. Signature Burger", "desc": "A hearty veggie pattie stacked with a juicy pineapple ring, onion, lettuce, tomato, beetroot, and drizzled with our signature sauces.", "price": 15.9, "tag": "bestseller" }
+      ]
+    },
+    {
+      "id": "sweets",
+      "name": "Sweet Goodies",
+      "icon": "🍰",
+      "items": [
+        { "id": "sw1", "name": "Bun Maska (Jam/Choc +$0.50)", "desc": "Soft bun generously layered with butter — a timeless Irani café favourite.", "price": 6, "tag": "bestseller" },
+        { "id": "sw2", "name": "Chocolate Brownie", "desc": "Dense, fudgy, perfectly gooey. Made fresh daily.", "price": 6.9, "tag": "" },
+        { "id": "sw3", "name": "Mini Cakes Assorted", "desc": "A rotating selection of mini cakes. Ask us what's fresh today.", "price": 9.9, "tag": "" },
+        { "id": "sw4", "name": "Biscoff Cheesecake", "desc": "Creamy cheesecake on a crunchy Biscoff base. Dangerously good.", "price": 9.9, "tag": "new" },
+        { "id": "sw5", "name": "Brownie with Ice Cream", "desc": "Warm fudgy brownie with a scoop of cold ice cream. The classic duo.", "price": 10.9, "tag": "bestseller" },
+        { "id": "sw6", "name": "Chocolate Ice Cream Sandwich", "desc": "Two cookies hugging a thick scoop of chocolate ice cream.", "price": 12.9, "tag": "" },
+        { "id": "sw7", "name": "Ras Malai Tres Leches", "desc": "The fusion you didn't know you needed — silky ras malai meets tres leches.", "price": 14.9, "tag": "new" },
+        { "id": "sw8", "name": "Tiramisu Tres Leches", "desc": "Classic tiramisu reinvented with tres leches soaking. Coffee-soaked bliss.", "price": 14.9, "tag": "" },
+        { "id": "sw9", "name": "Pistachio Tres Leches", "desc": "Rich pistachio cream on a tres leches sponge. Luxurious and fragrant.", "price": 14.9, "tag": "" },
+        { "id": "sw10", "name": "Pistachio Crunch Brownie", "desc": "Fudgy brownie topped with pistachio crunch. Our most indulgent bite.", "price": 15.9, "tag": "new" },
+        { "id": "sw11", "name": "Cold Coco", "desc": "Chilled chocolate drink that's thick, rich, and totally satisfying.", "price": 10.9, "tag": "" },
+        { "id": "sw12", "name": "Pistachio Falooda", "desc": "Layered rose milk falooda with pistachio. A show-stopper in a glass.", "price": 10.9, "tag": "bestseller" },
+        { "id": "sw13", "name": "Maharaja Falooda", "desc": "The royal version — loaded with all the toppings, rose milk, and ice cream.", "price": 10.9, "tag": "bestseller" },
+        { "id": "sw14", "name": "Cassata", "desc": "Layered colourful ice cream with nuts and candied fruit. A nostalgic classic.", "price": 7.9, "tag": "" },
+        { "id": "sw15", "name": "Guava Ice Cream", "desc": "Bold, tart guava flavour in a creamy ice cream scoop.", "price": 5, "tag": "" },
+        { "id": "sw16", "name": "Pistachio Ice Cream", "desc": "Rich pistachio ice cream. Nutty, creamy, perfect.", "price": 5, "tag": "" },
+        { "id": "sw17", "name": "Rajbhog Ice Cream", "desc": "Saffron and dry fruit flavoured ice cream — royally good.", "price": 5, "tag": "" }
+      ]
+    },
+    {
+      "id": "combos",
+      "name": "Combo Deals",
+      "icon": "🤝",
+      "subtitle": "Best value — best vibes",
+      "items": [
+        { "id": "co1", "name": "Chai + Bun Maska / Aloo Puff / Samosa", "desc": "Your perfect chai-time companion. Pick your bite.", "price": 10, "tag": "bestseller" },
+        { "id": "co2", "name": "Chai + Handvo / Thepla / Bombay Style Vadapav", "desc": "A proper Gujarati breakfast combo.", "price": 12, "tag": "" },
+        { "id": "co3", "name": "Chai + Indori Poha / Tari Poha", "desc": "The ultimate morning ritual.", "price": 13, "tag": "" },
+        { "id": "co4", "name": "Coffee + Croissant / Bagel / Donut", "desc": "Your everyday café combo, done right.", "price": 9, "tag": "" },
+        { "id": "co5", "name": "Pizza + Garlic Bread + Can Drink", "desc": "The full pizza experience.", "price": 19.9, "tag": "" },
+        { "id": "co6", "name": "Signature Burger + Fries + Can Drink", "desc": "The complete meal deal.", "price": 19.9, "tag": "bestseller" }
+      ]
+    },
+    {
+      "id": "kids",
+      "name": "For Little Ones",
+      "icon": "🧒",
+      "items": [
+        { "id": "k1", "name": "Small Fries", "desc": "Crispy golden fries in a little size for little hands.", "price": 5, "tag": "" },
+        { "id": "k2", "name": "Mini Bun Maska (Jam/Choc +$0.50)", "desc": "A tiny soft bun with butter. Kid-approved.", "price": 4, "tag": "" },
+        { "id": "k3", "name": "Veg. Cheese Burger", "desc": "A small, mild, cheesy veggie burger perfect for kids.", "price": 8, "tag": "" },
+        { "id": "k4", "name": "Mini Pizza Rolls (2pcs)", "desc": "Two bite-sized pizza rolls. Always a hit.", "price": 8, "tag": "bestseller" },
+        { "id": "k5", "name": "Mini Juice Apple/Orange", "desc": "Fresh apple or orange juice in a little cup.", "price": 3.5, "tag": "" }
+      ]
+    },
+    {
+      "id": "addons",
+      "name": "Add-Ons",
+      "icon": "➕",
+      "items": [
+        { "id": "a1", "name": "Sauce / Chutney", "desc": "", "price": 1, "tag": "" },
+        { "id": "a2", "name": "Pav (1pc)", "desc": "", "price": 1, "tag": "" },
+        { "id": "a3", "name": "Fried Green Chilli (3pcs)", "desc": "", "price": 1, "tag": "spicy" },
+        { "id": "a4", "name": "Cheese", "desc": "", "price": 1, "tag": "" },
+        { "id": "a5", "name": "Sev", "desc": "", "price": 2, "tag": "" },
+        { "id": "a6", "name": "Onion", "desc": "", "price": 2, "tag": "" },
+        { "id": "a7", "name": "Usal (16oz)", "desc": "", "price": 5, "tag": "" },
+        { "id": "a8", "name": "Extra Cup for Chai", "desc": "", "price": 1, "tag": "" },
+        { "id": "a9", "name": "Green/Sweet Water (Panipuri)", "desc": "", "price": 4, "tag": "" }
+      ]
+    }
+  ]
+}

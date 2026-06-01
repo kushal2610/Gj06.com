@@ -1,0 +1,109 @@
+/* ============================================
+   GJ 06 — Chai Loader Animation
+   ============================================ */
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.chai-glass-wrap {
+  position: relative;
+  width: 120px;
+  height: 200px;
+}
+
+/* Glass outline draws itself */
+.glass-outline {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawGlass 0.8s ease forwards 0.2s;
+}
+@keyframes drawGlass {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Chai fill rises — FIX: transform-origin must be set on the element, not inside keyframes */
+.chai-fill {
+  transform-origin: center bottom;
+  transform: scaleY(0);
+  animation: fillChai 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards 1s;
+}
+@keyframes fillChai {
+  0%   { transform: scaleY(0); }
+  60%  { transform: scaleY(0.85); }
+  80%  { transform: scaleY(0.78); }
+  100% { transform: scaleY(1); }
+}
+
+/* Froth */
+.chai-froth {
+  opacity: 0;
+  animation: fadeInElement 0.4s ease forwards 2.2s;
+}
+
+/* FIX: was referencing missing 'showSteam' — now uses correct keyframe name */
+.chai-steam {
+  opacity: 0;
+  animation: fadeInElement 0.4s ease forwards 2.4s;
+}
+
+@keyframes fadeInElement {
+  to { opacity: 1; }
+}
+
+/* Loader text */
+.loader-brand {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 14vw, 80px);
+  letter-spacing: 0.05em;
+  color: var(--black);
+  opacity: 0;
+  animation: fadeInElement 0.6s ease forwards 2s;
+}
+
+.loader-tagline {
+  font-family: var(--font-hand);
+  font-size: clamp(13px, 3.5vw, 18px);
+  color: var(--grey-dark);
+  letter-spacing: 0.03em;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInElement 0.6s ease forwards 2.3s;
+}
+
+/* Loader dots */
+.loader-dots {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeInElement 0.4s ease forwards 2.6s;
+}
+.loader-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--black);
+  border-radius: 50%;
+  animation: dotBounce 0.8s ease infinite;
+}
+.loader-dots span:nth-child(2) { animation-delay: 0.15s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
