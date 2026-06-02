@@ -358,7 +358,10 @@ ul{list-style:none}
 
 <script>
 // ── Config ────────────────────────────────────────────
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = window.location.hostname === 'localhost' || 
+                 window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8000/api'
+  : 'https://gj06-com-nine.vercel.app/main.html';
 
 // ── State ─────────────────────────────────────────────
 let menuData    = [];   // raw data from API
