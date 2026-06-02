@@ -6,6 +6,7 @@ from api.auth import verify_admin_token
 
 router = APIRouter()
 
+
 # ── PUBLIC: Get full menu (website calls this) ────────
 @router.get("/menu", response_model=List[MenuItem])
 def get_menu():
