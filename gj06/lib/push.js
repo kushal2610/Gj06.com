@@ -1,50 +1,38 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import webpush from 'web-push';
+import { supabaseAdmin } from '@/lib/supabase';
 
-export const revalidate = 300; // ISR: revalidate every 5 minutes
+if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  webpush.setVapidDetails(
+    process.env.VAPID_EMAIL || 'mailto:admin@gj06.com',
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
+}
 
-export async function GET() {
-  const { data, error } = await supabase
-    .from('menu_items')
-    .select('id, category, name, description, price, tag, available, sort_order')
-    .eq('available', true)
-    .order('sort_order', { ascending: true });
-
-  if (error) {
-    console.error('Menu fetch error:', error);
-    return NextResponse.json({ error: 'Failed to load menu' }, { status: 500 });
+export async function notifyOwnerNewOrder(order) {
+  if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
+    console.warn('VAPID keys not configured — skipping push notification');
+    return;
   }
 
-  // Group by category, preserving category order
-  const CATEGORY_ORDER = [
-    'Chai Ki Chuski',
-    'Coffee',
-    'Cold Brew',
-    'English Tea',
-    'Thickshakes',
-    'Mocktails',
-    'Juice & Cold Drinks',
-    'Indian Street Style',
-    'Snacks',
-    'Pizza & Burger',
-    'Sweet Goodies',
-    'Combo Deals',
-    'For Little Ones',
-    'Add-Ons',
-  ];
+  // Fetch all owner push subscriptions
+  const { data: subscriptions, error } = await supabaseAdmin
+    .from('push_subscriptions')
+    .select('subscription');
 
-  const grouped = {};
-  for (const item of data) {
-    if (!grouped[item.category]) grouped[item.category] = [];
-    grouped[item.category].push(item);
-  }
+  if (error || !subscriptions?.length) return;
 
-  const categories = CATEGORY_ORDER.filter(cat => grouped[cat]).map(cat => ({
-    name: cat,
-    items: grouped[cat],
-  }));
-
-  return NextResponse.json({ categories }, {
-    headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
+  const payload = JSON.stringify({
+    title: 'New Order ✦',
+    body: `${order.customer_name} — $${Number(order.total).toFixed(2)} AUD (${order.pickup_time})`,
+    url: '/admin',
   });
+
+  await Promise.allSettled(
+    subscriptions.map(({ subscription }) =>
+      webpush.sendNotification(subscription, payload).catch(err => {
+        console.error('Push send failed:', err);
+      })
+    )
+  );
 }

@@ -58,7 +58,7 @@ export default function CheckoutPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Something went wrong')
-      // Redirect to Stripe checkout
+      if (!data.url) throw new Error('No checkout URL returned')
       window.location.href = data.url
     } catch (err) {
       setError(err.message)
@@ -116,8 +116,8 @@ export default function CheckoutPage() {
                   <input className="form-input" name="email" value={form.email} onChange={handleChange} placeholder="For your confirmation email" type="email" autoComplete="email" />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Pickup Time</label>
-                  <select className="form-input" name="pickupTime" value={form.pickupTime} onChange={handleChange}>
+                  <label className="form-label" htmlFor="pickupTime">Pickup Time</label>
+                  <select id="pickupTime" className="form-input" name="pickupTime" value={form.pickupTime} onChange={handleChange}>
                     <option value="" disabled>When will you pick up?</option>
                     {PICKUP_TIMES.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>

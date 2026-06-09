@@ -10,19 +10,32 @@ function ConfirmationContent() {
   const sessionId = params.get('session_id')
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState(null)
 
   useEffect(() => {
     if (!sessionId) { setLoading(false); return }
     fetch(`/api/orders/confirm/${sessionId}`)
       .then(r => r.json())
-      .then(data => { setOrder(data); setLoading(false) })
-      .catch(() => setLoading(false))
+      .then(data => {
+        if (data.error) { setFetchError(data.error); } else { setOrder(data); }
+        setLoading(false);
+      })
+      .catch(err => { console.error('Order fetch failed:', err); setFetchError('Could not load order details.'); setLoading(false); })
     // Clear cart after successful order
     localStorage.removeItem('gj06_cart')
   }, [sessionId])
 
   if (loading) return (
     <div className={styles.loading}>One moment... 🫖</div>
+  )
+
+  if (fetchError) return (
+    <div className={styles.content}>
+      <div style={{fontSize:48,marginBottom:16}}>⚠️</div>
+      <h1 className="display-md" style={{marginBottom:12}}>Could not load order</h1>
+      <p style={{opacity:.7,marginBottom:28}}>{fetchError}</p>
+      <Link href="/menu" className="btn wg">Back to Menu</Link>
+    </div>
   )
 
   return (

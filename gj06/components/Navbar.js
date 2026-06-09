@@ -23,6 +23,16 @@ export default function Navbar() {
     document.body.style.overflow = '';
   }, [pathname]);
 
+  const openMenu = useCallback(() => {
+    setMenuOpen(true);
+    document.body.style.overflow = 'hidden';
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    document.body.style.overflow = '';
+  }, []);
+
   // Scroll listener
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -35,17 +45,7 @@ export default function Navbar() {
     const onKey = (e) => { if (e.key === 'Escape') closeMenu(); };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, []);
-
-  const openMenu = useCallback(() => {
-    setMenuOpen(true);
-    document.body.style.overflow = 'hidden';
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setMenuOpen(false);
-    document.body.style.overflow = '';
-  }, []);
+  }, [closeMenu]);
 
   const toggleMenu = useCallback(() => {
     if (menuOpen) closeMenu();

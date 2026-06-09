@@ -2,6 +2,9 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const esc = (str) => String(str ?? '').replace(/[&<>"']/g, c => ESC[c]);
+
 export async function sendOrderConfirmation(order) {
   const itemsList = order.items
     .map(item => `• ${item.name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}`)
@@ -15,7 +18,7 @@ export async function sendOrderConfirmation(order) {
       </div>
       <div style="padding: 32px 24px; border: 3px solid #0a0a0a; border-top: none;">
         <h2 style="font-size: 22px; margin-bottom: 8px;">Order Confirmed ✦</h2>
-        <p style="color: #555; margin-bottom: 24px;">Hi ${order.customer_name}, your order is confirmed and we're getting it ready!</p>
+        <p style="color: #555; margin-bottom: 24px;">Hi ${esc(order.customer_name)}, your order is confirmed and we&apos;re getting it ready!</p>
 
         <div style="background: #f5f5f5; padding: 20px; border-radius: 4px; margin-bottom: 24px;">
           <h3 style="margin: 0 0 12px; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Your Order</h3>
@@ -68,14 +71,14 @@ export async function sendReservationConfirmation(reservation) {
       </div>
       <div style="padding: 32px 24px; border: 3px solid #0a0a0a; border-top: none;">
         <h2 style="font-size: 22px; margin-bottom: 8px;">Reservation Received ✦</h2>
-        <p style="color: #555; margin-bottom: 24px;">Hi ${reservation.customer_name}, we've received your reservation request and will confirm shortly.</p>
+        <p style="color: #555; margin-bottom: 24px;">Hi ${esc(reservation.customer_name)}, we&apos;ve received your reservation request and will confirm shortly.</p>
 
         <div style="background: #f5f5f5; padding: 20px; border-radius: 4px; margin-bottom: 24px;">
           <table style="width: 100%; font-size: 15px; border-collapse: collapse;">
             <tr><td style="padding: 8px 0; color: #555;">Date</td><td style="text-align: right; font-weight: bold;">${reservation.date}</td></tr>
             <tr><td style="padding: 8px 0; color: #555;">Time</td><td style="text-align: right; font-weight: bold;">${reservation.time}</td></tr>
             <tr><td style="padding: 8px 0; color: #555;">Guests</td><td style="text-align: right; font-weight: bold;">${reservation.guests}</td></tr>
-            ${reservation.notes ? `<tr><td style="padding: 8px 0; color: #555;">Notes</td><td style="text-align: right;">${reservation.notes}</td></tr>` : ''}
+            ${reservation.notes ? `<tr><td style="padding: 8px 0; color: #555;">Notes</td><td style="text-align: right;">${esc(reservation.notes)}</td></tr>` : ''}
           </table>
         </div>
 

@@ -23,7 +23,7 @@ const CAT_SUBTITLES = {
 
 function Toast({ msg }) {
   if (!msg) return null
-  return <div className="toast">{msg}</div>
+  return <div role="status" aria-live="polite" className="toast">{msg}</div>
 }
 
 export default function MenuPage() {
@@ -39,7 +39,7 @@ export default function MenuPage() {
   useEffect(() => {
     const saved = localStorage.getItem('gj06_cart')
     if (saved) {
-      try { setCart(JSON.parse(saved)) } catch (e) {}
+      try { setCart(JSON.parse(saved)) } catch (e) { console.warn('Invalid cart JSON:', e) }
     }
   }, [])
 
