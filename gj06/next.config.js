@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow images from any domain
   images: {
     domains: [],
     unoptimized: true,
+  },
+  turbopack: {
+    root: __dirname,
   },
 }
 

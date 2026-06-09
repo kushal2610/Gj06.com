@@ -1,16 +1,16 @@
 import webpush from 'web-push';
 import { supabaseAdmin } from '@/lib/supabase';
 
-if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+if (process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(
     process.env.VAPID_EMAIL || 'mailto:admin@gj06.com',
-    process.env.VAPID_PUBLIC_KEY,
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
   );
 }
 
 export async function notifyOwnerNewOrder(order) {
-  if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
+  if (!process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
     console.warn('VAPID keys not configured — skipping push notification');
     return;
   }
@@ -18,7 +18,7 @@ export async function notifyOwnerNewOrder(order) {
   // Fetch all owner push subscriptions
   const { data: subscriptions, error } = await supabaseAdmin
     .from('push_subscriptions')
-    .select('subscription');
+    .select('endpoint, p256dh, auth');
 
   if (error || !subscriptions?.length) return;
 
@@ -29,8 +29,8 @@ export async function notifyOwnerNewOrder(order) {
   });
 
   await Promise.allSettled(
-    subscriptions.map(({ subscription }) =>
-      webpush.sendNotification(subscription, payload).catch(err => {
+    subscriptions.map(({ endpoint, p256dh, auth }) =>
+      webpush.sendNotification({ endpoint, keys: { p256dh, auth } }, payload).catch(err => {
         console.error('Push send failed:', err);
       })
     )

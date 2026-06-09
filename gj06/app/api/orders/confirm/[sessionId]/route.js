@@ -11,7 +11,7 @@ export async function GET(request, { params }) {
   const { data: order, error } = await supabaseAdmin
     .from('orders')
     .select('id, customer_name, customer_email, items, total, pickup_time, status, created_at')
-    .or(`stripe_payment_id.eq.${sessionId},stripe_session_id.eq.${sessionId}`)
+    .or(`stripe_payment_id.eq.${sessionId},id.eq.${sessionId}`)
     .single();
 
   if (error || !order) {
