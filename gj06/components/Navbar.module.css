@@ -1,0 +1,239 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+  height: var(--nav-h, 64px);
+  background: var(--white);
+  border-bottom: 3px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  transition: box-shadow 0.2s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 0 var(--black);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--black);
+  z-index: 700;
+  position: relative;
+}
+
+.logoImg {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.logoSub {
+  font-family: var(--font-hand);
+  font-size: 11px;
+  opacity: 0.55;
+  letter-spacing: 0.02em;
+  display: block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 700;
+  position: relative;
+}
+
+.orderBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  padding: 10px 22px;
+  border: 3px solid var(--black);
+  border-radius: 4px 12px 6px 10px / 10px 6px 12px 4px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.orderBtn::after {
+  content: '';
+  position: absolute;
+  inset: 3px 3px -5px -5px;
+  border: 2px solid var(--black);
+  border-radius: 3px 10px 5px 8px / 8px 5px 10px 3px;
+  z-index: -1;
+  transition: inset 0.15s ease;
+}
+
+.orderBtn:hover {
+  transform: translate(2px, -2px);
+}
+
+.orderBtn:hover::after {
+  inset: 3px 3px -8px -8px;
+}
+
+/* Hamburger */
+.hamburger {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 700;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: var(--black);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+  background: var(--white);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+  background: var(--white);
+}
+
+/* Full-screen overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlayNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.overlayLink {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 11vw, 76px);
+  color: var(--white);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  position: relative;
+  line-height: 1.1;
+  transition: opacity 0.2s;
+}
+
+.overlayLink::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+
+.overlayLink:hover::after,
+.overlayLink:focus::after {
+  width: 100%;
+}
+
+.overlaySocial {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.overlaySocial a {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.overlaySocial a:hover {
+  color: var(--white);
+}
+
+.overlayOrderBtn {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.06em;
+  padding: 14px 40px;
+  border: 3px solid var(--white);
+  border-radius: 4px 12px 6px 10px / 10px 6px 12px 4px;
+  background: var(--white);
+  color: var(--black);
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.15s ease;
+}
+
+.overlayOrderBtn::after {
+  content: '';
+  position: absolute;
+  inset: 3px 3px -5px -5px;
+  border: 2px solid var(--white);
+  border-radius: 3px 10px 5px 8px / 8px 5px 10px 3px;
+  z-index: -1;
+  transition: inset 0.15s ease;
+}
+
+.overlayOrderBtn:hover {
+  transform: translate(2px, -2px);
+}
+
+.overlayOrderBtn:hover::after {
+  inset: 3px 3px -8px -8px;
+}
