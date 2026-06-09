@@ -20,7 +20,7 @@ let activeCategory = 'all';
 
 async function loadMenu() {
   try {
-    const res = await fetch('data/menu.json');
+    const res = await fetch('menu.json');
     menuData = await res.json();
     renderMenu('all');
   } catch (e) {
