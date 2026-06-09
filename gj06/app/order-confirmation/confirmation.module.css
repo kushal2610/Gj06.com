@@ -1,7 +1,0 @@
-.main { max-width: 520px; margin: 0 auto; padding: 0 20px 80px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: var(--nav-h); }
-.loading { text-align: center; padding: 80px 20px; font-family: var(--font-h); font-size: 20px; opacity: .5; }
-.content { text-align: center; padding: 40px 0; }
-.orderCard { padding: 20px; margin: 24px 0; text-align: left; }
-.orderRow { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--grey-mid); font-family: var(--font-h); font-size: 16px; }
-.orderRow:last-child { border-bottom: none; }
-.actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
