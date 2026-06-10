@@ -1,7 +1,21 @@
-# .gitignore
+# Environment
 .env
-venv/
-__pycache__/
-*.pyc
-.DS_Store
 .env.local
+.env*.local
+
+# Next.js
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+npm-debug.log*
+
+# Vercel
+.vercel/
