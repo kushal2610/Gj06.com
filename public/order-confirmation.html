@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>Order Confirmed — GJ 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--white:#fff;--r:4px 14px 6px 10px / 10px 6px 14px 4px;--fd:'Bebas Neue',sans-serif;--fh:'Caveat',cursive;--fb:'Patrick Hand',serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+a{color:inherit;text-decoration:none}
+.card{max-width:480px;width:100%;text-align:center}
+.tick{font-size:64px;margin-bottom:16px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+h1{font-family:var(--fd);font-size:clamp(48px,12vw,88px);letter-spacing:.04em;line-height:.9;margin-bottom:12px}
+.tagline{font-family:var(--fh);font-size:18px;opacity:.6;margin-bottom:32px}
+.detail-box{border:2.5px solid rgba(255,255,255,.25);border-radius:var(--r);padding:20px;margin-bottom:28px;text-align:left}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14px}
+.row:last-child{border-bottom:none}
+.row span:first-child{opacity:.55}
+.row span:last-child{font-family:var(--fh);font-size:16px;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;letter-spacing:.05em;padding:14px 32px;border:3px solid var(--white);border-radius:var(--r);background:var(--white);color:var(--black);transition:transform .15s;cursor:pointer}
+.btn:hover{transform:translate(2px,-2px)}
+.note{font-family:var(--fh);font-size:14px;opacity:.4;margin-top:20px}
+.spin{border:3px solid rgba(255,255,255,.2);border-top:3px solid white;border-radius:50%;width:32px;height:32px;animation:spin 1s linear infinite;margin:60px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="card" id="loading"><div class="spin"></div></div>
+
+<div class="card" id="content" style="display:none">
+  <div class="tick">✦</div>
+  <h1>Order<br>Confirmed!</h1>
+  <p class="tagline">— see you soon —</p>
+  <div class="detail-box" id="details"></div>
+  <a href="menu.html" class="btn">Back to Menu →</a>
+  <p class="note">A confirmation email has been sent to your inbox.</p>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const sessionId = params.get('session_id');
+
+async function load() {
+  const cart = JSON.parse(localStorage.getItem('gj06_cart') || '[]');
+
+  // Clear cart now that order is confirmed
+  localStorage.removeItem('gj06_cart');
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const itemLines = cart.map(i =>
+    `<div class="row"><span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span></div>`
+  ).join('');
+
+  document.getElementById('details').innerHTML = `
+    ${itemLines}
+    <div class="row" style="margin-top:8px;border-top:2px solid rgba(255,255,255,.25);padding-top:12px;">
+      <span style="opacity:1;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.05em;">TOTAL PAID</span>
+      <span style="font-size:22px;">$${total.toFixed(2)}</span>
+    </div>
+  `;
+}
+
+load();
+</script>
+</body>
+</html>

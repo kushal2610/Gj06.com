@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>Kitchen — GJ 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--white:#fff;--r:4px 14px 6px 10px / 10px 6px 14px 4px;--fd:'Bebas Neue',sans-serif;--fh:'Caveat',cursive;--fb:'Patrick Hand',serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{max-width:400px;width:100%;text-align:center}
+h1{font-family:var(--fd);font-size:clamp(48px,12vw,80px);letter-spacing:.04em;margin-bottom:6px}
+.sub{font-family:var(--fh);font-size:16px;opacity:.5;margin-bottom:36px}
+.btn{display:block;width:100%;font-family:var(--fd);font-size:20px;letter-spacing:.05em;padding:16px;border:3px solid var(--white);border-radius:var(--r);background:var(--white);color:var(--black);cursor:pointer;margin-bottom:14px;transition:transform .15s}
+.btn:hover{transform:translate(2px,-2px)}
+.btn.outline{background:transparent;color:var(--white)}
+.status{font-family:var(--fh);font-size:17px;margin-top:20px;min-height:28px;opacity:.7}
+.status.ok{color:#2ecc71;opacity:1}
+.status.err{color:#e74c3c;opacity:1}
+</style>
+</head>
+<body>
+<div class="card">
+  <div style="font-size:40px;margin-bottom:12px;">🫖</div>
+  <h1>Kitchen</h1>
+  <p class="sub">— GJ 06 push alerts —</p>
+
+  <button class="btn" id="subBtn" onclick="subscribe()">Enable Order Alerts</button>
+  <button class="btn outline" id="unsubBtn" onclick="unsubscribe()" style="display:none">Disable Alerts</button>
+
+  <p class="status" id="status">Checking status...</p>
+</div>
+
+<script>
+let sw, sub;
+
+async function init() {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+    setStatus('Push notifications not supported on this browser.', 'err');
+    return;
+  }
+
+  sw = await navigator.serviceWorker.register('/sw.js');
+  sub = await sw.pushManager.getSubscription();
+
+  if (sub) {
+    setStatus('✦ Alerts active — orders will notify this device.', 'ok');
+    document.getElementById('subBtn').style.display = 'none';
+    document.getElementById('unsubBtn').style.display = 'block';
+  } else {
+    setStatus('Not subscribed. Tap Enable to receive order alerts.');
+  }
+}
+
+async function subscribe() {
+  try {
+    const { publicKey } = await fetch('/api/push').then(r => r.json());
+    if (!publicKey) { setStatus('Push not configured yet — add VAPID keys to Vercel.', 'err'); return; }
+
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') { setStatus('Permission denied. Enable notifications in browser settings.', 'err'); return; }
+
+    sub = await sw.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(publicKey),
+    });
+
+    const { endpoint, keys: { p256dh, auth } } = sub.toJSON();
+    const res = await fetch('/api/push', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ endpoint, p256dh, auth }),
+    });
+
+    if (res.ok) {
+      setStatus('✦ Alerts active — orders will notify this device.', 'ok');
+      document.getElementById('subBtn').style.display = 'none';
+      document.getElementById('unsubBtn').style.display = 'block';
+    } else {
+      setStatus('Failed to save subscription. Try again.', 'err');
+    }
+  } catch (err) {
+    setStatus(`Error: ${err.message}`, 'err');
+  }
+}
+
+async function unsubscribe() {
+  if (sub) await sub.unsubscribe();
+  setStatus('Alerts disabled.');
+  document.getElementById('subBtn').style.display = 'block';
+  document.getElementById('unsubBtn').style.display = 'none';
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status' + (type ? ` ${type}` : '');
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const raw = atob(base64);
+  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+}
+
+init();
+</script>
+</body>
+</html>

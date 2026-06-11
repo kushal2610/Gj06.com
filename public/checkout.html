@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>Checkout — GJ 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--white:#fff;--gl:#f5f5f5;--gm:#e0e0e0;--gd:#555;--nav-h:64px;--r:4px 14px 6px 10px / 10px 6px 14px 4px;--fd:'Bebas Neue',sans-serif;--fh:'Caveat',cursive;--fb:'Patrick Hand',serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:var(--fb);min-height:100vh}
+a{color:inherit;text-decoration:none}
+#nb{position:fixed;top:0;left:0;right:0;z-index:400;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--white);border-bottom:2.5px solid var(--black)}
+.nl{display:flex;align-items:center;gap:10px;font-family:var(--fd);font-size:26px;letter-spacing:.04em}
+.wrap{max-width:680px;margin:0 auto;padding:calc(var(--nav-h) + 32px) 20px 60px}
+h1{font-family:var(--fd);font-size:clamp(36px,8vw,64px);letter-spacing:.04em;margin-bottom:6px}
+.sub{font-family:var(--fh);font-size:16px;opacity:.5;margin-bottom:36px}
+.sk{border:3px solid var(--black);border-radius:var(--r);position:relative}
+.sk::before{content:'';position:absolute;inset:3px;pointer-events:none;border:1px solid var(--black);border-radius:3px 11px 5px 8px/8px 5px 11px 3px;opacity:.2}
+.card{padding:24px;margin-bottom:24px}
+.card h2{font-family:var(--fd);font-size:22px;letter-spacing:.04em;margin-bottom:18px}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+label{font-family:var(--fh);font-size:15px;font-weight:700}
+input,select{font-family:var(--fb);font-size:15px;padding:11px 14px;border:2.5px solid var(--black);border-radius:4px 10px 4px 8px/8px 4px 10px 4px;background:var(--white);width:100%;outline:none}
+input:focus,select:focus{box-shadow:3px 3px 0 var(--black)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.order-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gm);font-size:14px;gap:8px}
+.order-item:last-child{border-bottom:none}
+.order-total{display:flex;justify-content:space-between;padding-top:14px;margin-top:4px;border-top:3px solid var(--black)}
+.order-total span:first-child{font-family:var(--fh);font-size:15px;opacity:.6;align-self:center}
+.order-total span:last-child{font-family:var(--fd);font-size:28px}
+.pay-btn{width:100%;font-family:var(--fd);font-size:22px;letter-spacing:.05em;padding:18px;background:var(--black);color:var(--white);border:3px solid var(--black);border-radius:var(--r);cursor:pointer;margin-top:10px;transition:transform .15s}
+.pay-btn:hover{transform:translate(2px,-2px)}
+.pay-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.empty-msg{text-align:center;padding:60px 20px;font-family:var(--fh);font-size:18px;opacity:.5}
+.err{color:#c0392b;font-family:var(--fh);font-size:14px;margin-top:8px;display:none}
+</style>
+</head>
+<body>
+
+<header id="nb">
+  <a href="menu.html" class="nl">← GJ 06</a>
+</header>
+
+<div class="wrap">
+  <h1>Checkout</h1>
+  <p class="sub">— pickup only · paid upfront —</p>
+
+  <!-- Order summary -->
+  <div class="sk card" id="summaryCard">
+    <h2>Your Order</h2>
+    <div id="orderItems"></div>
+    <div class="order-total">
+      <span>Total</span>
+      <span id="orderTotal">$0.00</span>
+    </div>
+  </div>
+
+  <!-- Customer details -->
+  <div class="sk card">
+    <h2>Your Details</h2>
+    <div class="fg">
+      <label for="name">Full Name</label>
+      <input id="name" type="text" placeholder="What do we call you?" autocomplete="name">
+    </div>
+    <div class="row2">
+      <div class="fg">
+        <label for="phone">Phone</label>
+        <input id="phone" type="tel" placeholder="+61 400 000 000" autocomplete="tel">
+      </div>
+      <div class="fg">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="for your receipt" autocomplete="email">
+      </div>
+    </div>
+    <div class="fg">
+      <label for="pickup">Pickup Time</label>
+      <select id="pickup"></select>
+    </div>
+  </div>
+
+  <div class="err" id="errMsg"></div>
+  <button class="pay-btn sk" id="payBtn" onclick="pay()">Pay with Card →</button>
+  <p style="font-family:var(--fh);font-size:13px;text-align:center;opacity:.5;margin-top:12px;">Secure payment via Stripe · AUD</p>
+</div>
+
+<div id="emptyState" class="empty-msg" style="display:none">
+  Your cart is empty. <a href="menu.html" style="text-decoration:underline">Back to menu →</a>
+</div>
+
+<script>
+const cart = JSON.parse(localStorage.getItem('gj06_cart') || '[]');
+
+// Build pickup time options (next 3 days, 15-min slots 8am–9pm)
+function buildPickupSlots() {
+  const sel = document.getElementById('pickup');
+  const now = new Date();
+  for (let d = 0; d < 3; d++) {
+    const day = new Date(now);
+    day.setDate(day.getDate() + d);
+    const label = d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : day.toLocaleDateString('en-AU', {weekday:'long'});
+    for (let h = 8; h < 21; h++) {
+      for (let m = 0; m < 60; m += 15) {
+        if (d === 0) {
+          const slot = new Date(day);
+          slot.setHours(h, m, 0, 0);
+          if (slot <= now) continue; // skip past slots
+        }
+        const hh = String(h).padStart(2,'0');
+        const mm = String(m).padStart(2,'0');
+        const ampm = h < 12 ? 'AM' : 'PM';
+        const h12 = h % 12 || 12;
+        const opt = document.createElement('option');
+        opt.value = `${label}, ${h12}:${mm} ${ampm}`;
+        opt.textContent = `${label}, ${h12}:${mm} ${ampm}`;
+        sel.appendChild(opt);
+      }
+    }
+  }
+}
+
+function renderOrder() {
+  const wrap = document.querySelector('.wrap');
+  if (!cart.length) {
+    wrap.style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+
+  const itemsEl = document.getElementById('orderItems');
+  itemsEl.innerHTML = cart.map(i => `
+    <div class="order-item">
+      <span>${i.qty}× ${i.name}</span>
+      <span style="font-family:'Caveat',cursive;font-size:16px;font-weight:700;flex-shrink:0;">$${(i.price*i.qty).toFixed(2)}</span>
+    </div>
+  `).join('');
+
+  const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  document.getElementById('orderTotal').textContent = `$${total.toFixed(2)}`;
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function pay() {
+  document.getElementById('errMsg').style.display = 'none';
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const pickup = document.getElementById('pickup').value;
+
+  if (!name || !phone || !email || !pickup) { showErr('Please fill in all fields.'); return; }
+  if (!/\S+@\S+\.\S+/.test(email)) { showErr('Please enter a valid email.'); return; }
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.textContent = 'Connecting to Stripe...';
+
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart, customer_name: name, customer_phone: phone, customer_email: email, pickup_time: pickup }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'Could not create checkout session');
+    window.location.href = data.url;
+  } catch (err) {
+    showErr(err.message);
+    btn.disabled = false;
+    btn.textContent = 'Pay with Card →';
+  }
+}
+
+renderOrder();
+buildPickupSlots();
+</script>
+</body>
+</html>

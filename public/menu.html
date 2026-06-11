@@ -369,6 +369,21 @@ ul{list-style:none}
     </div>
     <button class="checkout-btn" onclick="goToCheckout()">Checkout →</button>
   </div>
+  <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);">
+    <div style="font-family:var(--fh);font-size:13px;opacity:.5;margin-bottom:10px;text-align:center;">— or order delivery via —</div>
+    <div style="display:flex;gap:10px;">
+      <a href="https://www.ubereats.com/au/store/gj06-parramatta/OQqcxLRtRSS_QdO5WgF4yQ" target="_blank" rel="noopener"
+        style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fh);font-size:14px;font-weight:700;padding:10px;border:2px solid rgba(255,255,255,.4);border-radius:var(--r);color:white;text-decoration:none;transition:border-color .15s;"
+        onmouseenter="this.style.borderColor='white'" onmouseleave="this.style.borderColor='rgba(255,255,255,.4)'">
+        🛵 UberEats
+      </a>
+      <a href="https://www.doordash.com/store/gj06-(-a-magical-2d-cafe-&-bakehouse-)-parramatta-34171963/66882149/" target="_blank" rel="noopener"
+        style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fh);font-size:14px;font-weight:700;padding:10px;border:2px solid rgba(255,255,255,.4);border-radius:var(--r);color:white;text-decoration:none;transition:border-color .15s;"
+        onmouseenter="this.style.borderColor='white'" onmouseleave="this.style.borderColor='rgba(255,255,255,.4)'">
+        🚗 DoorDash
+      </a>
+    </div>
+  </div>
 </div>
 
 <!-- Mobile bottom bar -->
@@ -397,6 +412,7 @@ let menuData    = [];   // raw data from API
 let categories  = [];   // unique category names in order
 let activeCat   = '';
 let cart        = JSON.parse(localStorage.getItem('gj06_cart') || '[]');
+const _items = {};
 
 // ── Fetch menu from live API ───────────────────────────
 async function loadMenu() {
@@ -501,6 +517,7 @@ function renderCategory(cat) {
 
   const subtitle = subtitles[cat] || '';
 
+  items.forEach(item => { _items[item.id] = item; });
   const itemsHTML = items.map(item => {
     const isUnavailable = !item.available;
     const tagMap = {
@@ -526,7 +543,7 @@ function renderCategory(cat) {
           ${!isUnavailable ? `
             <button
               class="addbtn"
-              onclick="addToCart('${item.id}', ${JSON.stringify(item.name)}, ${item.price})"
+              onclick="addToCart('${item.id}')"
               aria-label="Add ${item.name}">
               +
             </button>
@@ -555,16 +572,18 @@ function saveCart() {
   localStorage.setItem('gj06_cart', JSON.stringify(cart));
 }
 
-function addToCart(id, name, price) {
+function addToCart(id) {
+  const item = _items[id];
+  if (!item) return;
   const existing = cart.find(i => i.id === id);
   if (existing) {
     existing.qty++;
   } else {
-    cart.push({ id, name, price: Number(price), qty: 1 });
+    cart.push({ id, name: item.name, price: Number(item.price), qty: 1 });
   }
   saveCart();
   updateCartUI();
-  showToast(`Added ${name}! 🫖`);
+  showToast(`Added ${item.name}! 🫖`);
 }
 
 function changeQty(id, delta) {
