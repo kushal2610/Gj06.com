@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0"/>
+<meta name="description" content="GJ 06 Bakehouse — Fresh-baked Ladi Pav, Usal Pav, Patti Pav, Bread Loaf & Bun Maska. Wholesale & distribution for grocery stores and food businesses across Western Sydney."/>
+<title>Bakehouse — GJ 06</title>
+<link rel="icon" href="images/GJ 06 logo.png"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap');
+
+/* ============================================================
+   GJ 06 — Bakehouse (self-contained, matches site tokens)
+   ============================================================ */
+:root{
+  --black:#0a0a0a; --white:#fff;
+  --gl:#f5f5f5; --gm:#e0e0e0; --gd:#555;
+  --chai:#C8813A; --chai-l:#e8a55a;
+  --nav-h:64px;
+  --r:4px 14px 6px 10px / 10px 6px 14px 4px;
+  --fd:'Bebas Neue',Impact,sans-serif;
+  --fh:'Caveat',cursive;
+  --fb:'Patrick Hand',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+section{position:relative}
+
+/* ---- Header / Nav (matches site) ---- */
+#nb{position:fixed;top:0;left:0;right:0;z-index:400;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--white);border-bottom:2.5px solid var(--black);transition:box-shadow .3s}
+#nb.sc{box-shadow:0 4px 0 var(--black)}
+.nl{display:flex;align-items:center;gap:10px;font-family:var(--fd);font-size:28px;letter-spacing:.06em}
+.hbg{background:none;border:3px solid var(--black);border-radius:var(--r);width:48px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px;cursor:pointer}
+.hbg span{display:block;height:2.5px;width:22px;background:var(--black);border-radius:2px}
+.hbg span:nth-child(2){width:15px;align-self:flex-start}
+.nvo{position:fixed;inset:0;z-index:500;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.nvo.op{opacity:1;visibility:visible}
+.nvo nav{display:flex;flex-direction:column;align-items:center;gap:8px}
+.nvo nav a{font-family:var(--fd);font-size:clamp(40px,10vw,68px);color:#fff;letter-spacing:.05em;position:relative}
+.nvo nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:3px;background:var(--chai);transition:width .3s}
+.nvo nav a:hover::after,.nvo nav a.act::after{width:100%}
+.nvo nav a.act{color:var(--chai)}
+.nvc{position:absolute;top:20px;right:20px;background:none;border:none;font-family:var(--fh);font-size:40px;color:#fff;line-height:1;cursor:pointer}
+.nso{display:flex;gap:16px;margin-top:8px}
+.nso svg{width:28px;height:28px}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fd);font-size:20px;letter-spacing:.05em;padding:14px 28px;min-height:52px;border:3px solid var(--black);border-radius:var(--r);background:var(--black);color:#fff;position:relative;transition:transform .15s;white-space:nowrap;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.bto{background:transparent;color:var(--black)}
+.wg:hover{animation:wg .3s ease infinite}
+@keyframes wg{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.5deg)}}
+
+/* ---- Reveal on scroll ---- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.4s}
+
+/* ---- Page transition ---- */
+.pt{position:fixed;inset:0;background:var(--black);z-index:9000;transform:scaleY(0);transform-origin:bottom;display:none}
+.pt.en{display:block;animation:pti .4s ease forwards}
+.pt.ex{display:block;animation:pto .4s ease forwards}
+@keyframes pti{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+@keyframes pto{from{transform:scaleY(1);transform-origin:top}to{transform:scaleY(0);transform-origin:top}}
+
+/* ============================================================
+   Shared animation keyframes
+   ============================================================ */
+@keyframes steam{0%{opacity:0;transform:translateY(4px) scaleX(.8)}30%{opacity:.7}100%{opacity:0;transform:translateY(-16px) scaleX(1.1)}}
+@keyframes flicker{0%,100%{opacity:.85;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.12)}}
+@keyframes stir{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes roll{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}
+@keyframes drive{0%{transform:translateX(-8px)}50%{transform:translateX(8px)}100%{transform:translateX(-8px)}}
+@keyframes pulsering{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.4);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+@keyframes bob2{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-14px) rotate(-2deg)}}
+@keyframes dust{0%{transform:translate(0,0);opacity:0}10%{opacity:.6}100%{transform:translate(var(--dx,20px),-60px);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ============================================================
+   Info strip + marquee
+   ============================================================ */
+.strip{background:var(--chai);padding:12px 20px;text-align:center;font-family:var(--fh);font-size:clamp(15px,2.4vw,19px);color:#fff;margin-top:var(--nav-h);font-weight:700}
+.mq{overflow:hidden;background:var(--black);border-top:3px solid var(--black);border-bottom:3px solid var(--black);padding:13px 0}
+.mq-inner{display:flex;white-space:nowrap;width:max-content;animation:mqscroll 26s linear infinite}
+.mq:hover .mq-inner{animation-play-state:paused}
+@keyframes mqscroll{to{transform:translateX(-50%)}}
+.mq-item{font-family:var(--fd);font-size:clamp(18px,4vw,26px);color:#fff;padding:0 26px;letter-spacing:.08em}
+.mq-dot{color:var(--chai);font-size:20px}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.bk-hero{background:var(--black);color:#fff;padding:clamp(56px,9vw,96px) clamp(20px,6vw,80px) clamp(48px,8vw,84px);overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.bk-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(200,129,58,.06) 22px,rgba(200,129,58,.06) 23px);pointer-events:none}
+.bk-hero-txt{position:relative;z-index:2}
+.bk-badge{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--chai);color:var(--chai);font-family:var(--fh);font-weight:700;font-size:15px;padding:5px 16px;border-radius:30px;margin-bottom:18px}
+.bk-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--chai);box-shadow:0 0 0 0 var(--chai);animation:pulseDot 1.8s infinite}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(200,129,58,.6)}100%{box-shadow:0 0 0 10px rgba(200,129,58,0)}}
+.bk-hero h1{font-family:var(--fd);font-size:clamp(56px,13vw,128px);line-height:.92;letter-spacing:2px}
+.bk-hero h1 span{color:var(--chai);-webkit-text-stroke:1px var(--chai)}
+.bk-hero p.sub{font-family:var(--fh);font-size:clamp(17px,3vw,24px);opacity:.85;margin-top:16px;max-width:460px}
+.bk-hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.bk-hero-art{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;min-height:280px}
+.bk-hero-art .oven{width:min(420px,90%);height:auto;overflow:visible}
+.wheat{position:absolute;width:46px;opacity:.5}
+.wheat.w1{top:8%;left:4%;animation:bob 6s ease-in-out infinite}
+.wheat.w2{bottom:6%;right:8%;animation:bob2 7s ease-in-out infinite}
+.dustp{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--chai-l);bottom:30%;opacity:0}
+
+/* ============================================================
+   Section shell
+   ============================================================ */
+.sec{padding:clamp(54px,8vw,96px) clamp(20px,6vw,80px)}
+.sec-eyebrow{font-family:var(--fh);font-weight:700;color:var(--chai);font-size:18px;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.sec-eyebrow::before{content:'';width:26px;height:2px;background:var(--chai)}
+.sec-title{font-family:var(--fd);font-size:clamp(34px,6.5vw,64px);line-height:1;margin:6px 0 8px}
+.sec-sub{font-family:var(--fh);font-size:clamp(16px,2.6vw,20px);color:var(--gd);max-width:620px;margin-bottom:38px}
+
+/* ---- Products ---- */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:24px}
+.pcard{border:3px solid var(--black);border-radius:var(--r);background:var(--white);box-shadow:5px 5px 0 var(--black);overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.pcard:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--black)}
+.pcard-art{background:#f6f6f4;border-bottom:3px solid var(--black);height:170px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pcard-art::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 13px,rgba(10,10,10,.035) 13px,rgba(10,10,10,.035) 14px);pointer-events:none}
+.pcard-art svg{width:150px;height:150px;overflow:visible;position:relative}
+.pcard-art img{width:100%;height:100%;object-fit:cover}
+/* black & white line-art: recolour chai fills to white/grey, brown strokes to black */
+.pcard-art .illu{--chai:#e6e6e6;--chai-l:#ffffff}
+.pcard-art .illu [stroke="#7a4a18"]{stroke:#0a0a0a}
+.pcard-art .illu [fill="#7a4a18"]{fill:#0a0a0a}
+.pcard:hover .pcard-art .illu{animation:bob 2.2s ease-in-out infinite}
+.pcard-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.pname{font-family:var(--fd);font-size:25px;letter-spacing:.5px;line-height:1}
+.ppack{align-self:flex-start;background:var(--chai);color:#fff;font-family:var(--fh);font-weight:700;font-size:13px;padding:3px 12px;border-radius:20px}
+.pdesc{font-size:14.5px;color:var(--gd);line-height:1.5;flex:1}
+.pprice{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--black);border-top:2px dashed var(--gm);padding-top:11px;display:flex;align-items:center;gap:6px}
+.pbtn{margin-top:4px;font-family:var(--fd);font-size:16px;letter-spacing:.04em;border:2.5px solid var(--black);border-radius:var(--r);background:var(--white);color:var(--black);padding:9px;text-align:center;transition:background .15s,color .15s}
+.pbtn:hover{background:var(--black);color:#fff}
+
+/* ---- How we make it ---- */
+.make{background:var(--gl);border-top:3px solid var(--black);border-bottom:3px solid var(--black)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.steps::before{content:'';position:absolute;top:74px;left:8%;right:8%;border-top:3px dashed var(--chai);z-index:0}
+.step{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.step-ic{width:120px;height:120px;border:3px solid var(--black);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 var(--black)}
+.step-ic svg{width:78px;height:78px;overflow:visible}
+.step-n{font-family:var(--fh);font-weight:700;color:var(--chai);font-size:15px}
+.step h4{font-family:var(--fd);font-size:21px;letter-spacing:.4px}
+.step p{font-size:13.5px;color:var(--gd);line-height:1.45;max-width:190px}
+
+/* ---- Video reels ---- */
+.reels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.reel{position:relative;border:3px solid var(--black);border-radius:var(--r);overflow:hidden;box-shadow:5px 5px 0 var(--black);aspect-ratio:4/5;background:var(--black)}
+.reel video,.reel img{width:100%;height:100%;object-fit:cover;display:block}
+.reel-ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.05) 55%,transparent);cursor:pointer}
+.reel-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,.92);border:3px solid var(--black);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.reel:hover .reel-play{transform:translate(-50%,-50%) scale(1.1)}
+.reel-play::after{content:'';margin-left:4px;border-left:18px solid var(--black);border-top:11px solid transparent;border-bottom:11px solid transparent}
+.reel.playing .reel-play,.reel.playing .reel-ov{opacity:0;pointer-events:none}
+.reel-tag{font-family:var(--fh);font-weight:700;color:var(--chai-l);font-size:14px}
+.reel-ttl{font-family:var(--fd);font-size:23px;color:#fff;letter-spacing:.4px;line-height:1}
+
+/* ---- Where to find / map ---- */
+.find{background:var(--black);color:#fff;border-top:3px solid var(--black)}
+.find .sec-title{color:#fff}.find .sec-sub{color:rgba(255,255,255,.62)}
+.find-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.map-wrap{position:relative;border:3px solid rgba(255,255,255,.25);border-radius:var(--r);background:rgba(255,255,255,.04);padding:18px;min-height:340px}
+.map-wrap svg{width:100%;height:auto;overflow:visible}
+.pin{cursor:pointer}
+.pin .ring{transform-origin:center;transform-box:fill-box;animation:pulsering 2.2s ease-out infinite}
+.pin .ring.b{animation-delay:1.1s}
+.areas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.area{border:2px solid rgba(255,255,255,.22);border-radius:var(--r);padding:16px 16px;background:rgba(255,255,255,.05);transition:border-color .2s,background .2s,transform .2s}
+.area:hover{border-color:var(--chai);background:rgba(200,129,58,.1);transform:translateY(-3px)}
+.area h4{font-family:var(--fd);font-size:20px;letter-spacing:.4px;margin-bottom:4px}
+.area p{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.45}
+.tag{display:inline-block;margin-top:9px;font-family:var(--fh);font-weight:700;font-size:12px;padding:2px 11px;border-radius:20px;background:rgba(200,129,58,.2);color:var(--chai-l);border:1px solid rgba(200,129,58,.4)}
+.tag.live{background:rgba(39,174,96,.16);color:#6fcf97;border-color:rgba(39,174,96,.4)}
+/* stockist list — compact 2-col grid; tap a chip for Google Maps directions */
+.stockists{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stk-area{grid-column:1/-1;font-family:var(--fd);font-size:15px;letter-spacing:.5px;color:var(--chai-l);margin-top:6px;padding-bottom:2px;border-bottom:1px solid rgba(255,255,255,.14)}
+.stockists>.stk-area:first-child{margin-top:0}
+.store{position:relative;display:flex;flex-direction:column;justify-content:center;gap:0;min-width:0;border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:5px 22px 5px 10px;background:rgba(255,255,255,.04);transition:border-color .18s,background .18s}
+.store:hover{border-color:var(--chai);background:rgba(200,129,58,.12)}
+.store-name{font-family:var(--fd);font-weight:400;font-size:15.5px;letter-spacing:.3px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.store-addr{font-size:10.5px;color:rgba(255,255,255,.45);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.store::after{content:'📍';position:absolute;top:50%;right:7px;transform:translateY(-50%);font-size:11px;opacity:.5;transition:opacity .18s}
+.store:hover::after{opacity:1}
+.store.enquire{grid-column:1/-1;border-style:dashed}
+.store.enquire .store-name{font-size:14px;color:rgba(255,255,255,.8)}
+.store.enquire::after{content:'➕';opacity:.65}
+
+/* ---- Distributor CTA ---- */
+.distcta{background:#fff;color:var(--black);text-align:center;border-top:3px solid var(--black);border-bottom:3px solid var(--black)}
+.distcta h2{font-family:var(--fd);font-size:clamp(34px,7vw,68px);line-height:1;margin-bottom:6px}
+.distcta h2 em{font-style:normal;color:var(--chai)}
+.distcta .acc{display:inline-block;width:60px;height:4px;background:var(--chai);border-radius:3px;margin:0 auto 18px}
+.distcta p{font-family:var(--fh);font-size:clamp(17px,2.8vw,22px);max-width:560px;margin:0 auto 26px;color:var(--gd)}
+.distcta .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.distcta .btn{border-color:var(--black)}
+.distcta .btn.solid{background:var(--black);color:#fff}
+.distcta .btn.ghost{background:#fff;color:var(--black)}
+
+/* ---- Promise notes ---- */
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.note{display:flex;gap:14px;align-items:flex-start}
+.note .ni{font-size:30px;flex-shrink:0;line-height:1}
+.note h4{font-family:var(--fd);font-size:22px;letter-spacing:.4px;margin-bottom:5px}
+.note p{font-size:14px;color:var(--gd);line-height:1.55}
+
+/* ---- Footer ---- */
+.ft{background:var(--black);color:rgba(255,255,255,.55);text-align:center;padding:26px 20px;font-size:13.5px}
+.ft a{color:var(--chai)}
+.ft-contact{display:flex;gap:14px;justify-content:center;margin-bottom:18px}
+.ft .ftb{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:2px solid rgba(255,255,255,.35);border-radius:50%;color:#fff;transition:background .15s,border-color .15s,transform .15s}
+.ft .ftb:hover{background:var(--chai);border-color:var(--chai);color:#fff;transform:translateY(-3px)}
+.ft .ftb svg{width:20px;height:20px;fill:currentColor}
+
+/* ---- Responsive ---- */
+@media(max-width:860px){
+  .bk-hero{grid-template-columns:1fr;text-align:center}
+  .bk-hero p.sub{margin-left:auto;margin-right:auto}
+  .bk-hero-cta{justify-content:center}
+  .bk-hero-art{order:-1;min-height:220px}
+  .steps{grid-template-columns:1fr 1fr;gap:26px}
+  .steps::before{display:none}
+  .find-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .steps{grid-template-columns:1fr}
+  .stockists{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="pt"></div>
+
+<!-- ===== Nav overlay ===== -->
+<div class="nvo" id="nvo" role="dialog" aria-label="Navigation">
+  <button class="nvc" id="nvc" aria-label="Close">✕</button>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="bakehouse.html" class="act">Bakehouse</a>
+    <a href="index.html#about">Our Story</a>
+    <a href="index.html#gallery">Gallery</a>
+    <a href="reserve.html">Reserve</a>
+  </nav>
+  <div class="nso">
+    <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ===== Header ===== -->
+<header id="nb">
+  <a href="index.html" class="nl"><span>GJ 06</span></a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="#distributor" class="btn wg" style="font-size:14px;padding:8px 16px;min-height:38px;">🍞 Stock Us</a>
+    <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== Info strip ===== -->
+<div class="strip">🍞 Baked fresh every morning · Wholesale &amp; distribution for grocery stores, cafés &amp; canteens</div>
+
+<!-- ===== Hero ===== -->
+<section class="bk-hero">
+  <div class="bk-hero-txt">
+    <span class="bk-badge"><span class="dot"></span> Wholesale &amp; Distribution</span>
+    <h1>THE<br><span>BAKE</span>HOUSE</h1>
+    <p class="sub">Soft pav, golden bread &amp; buttery buns — baked fresh in-house and delivered straight to your shelves.</p>
+    <div class="bk-hero-cta">
+      <a href="#products" class="btn wg" style="background:#fff;color:#0a0a0a;border-color:#fff;">View Products</a>
+      <a href="#distributor" class="btn wg" style="background:transparent;color:#fff;border-color:#fff;">Become a Stockist</a>
+    </div>
+  </div>
+  <div class="bk-hero-art">
+    <!-- floating wheat -->
+    <svg class="wheat w1" viewBox="0 0 40 80"><g stroke="var(--chai)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M20 78 V26"/><path d="M20 30 Q9 27 7 18 Q18 19 20 30"/><path d="M20 30 Q31 27 33 18 Q22 19 20 30"/><path d="M20 42 Q9 39 7 30 Q18 31 20 42"/><path d="M20 42 Q31 39 33 30 Q22 31 20 42"/><path d="M20 54 Q9 51 7 42 Q18 43 20 54"/><path d="M20 54 Q31 51 33 42 Q22 43 20 54"/></g></svg>
+    <svg class="wheat w2" viewBox="0 0 40 80"><g stroke="var(--chai)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M20 78 V26"/><path d="M20 30 Q9 27 7 18 Q18 19 20 30"/><path d="M20 30 Q31 27 33 18 Q22 19 20 30"/><path d="M20 42 Q9 39 7 30 Q18 31 20 42"/><path d="M20 42 Q31 39 33 30 Q22 31 20 42"/></g></svg>
+    <!-- flour dust -->
+    <span class="dustp" style="left:30%;--dx:18px;animation:dust 5s linear infinite"></span>
+    <span class="dustp" style="left:52%;--dx:-22px;animation:dust 6s linear .8s infinite"></span>
+    <span class="dustp" style="left:68%;--dx:14px;animation:dust 5.5s linear 1.6s infinite"></span>
+    <!-- OVEN scene -->
+    <svg class="oven" viewBox="0 0 320 280" aria-label="Bakery oven illustration">
+      <!-- steam -->
+      <g fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55">
+        <path style="transform-origin:center;animation:steam 2.6s ease-out infinite" d="M138 70 q-8 -10 0 -20 q8 -10 0 -22"/>
+        <path style="transform-origin:center;animation:steam 2.6s ease-out .6s infinite" d="M162 68 q-8 -10 0 -20 q8 -10 0 -22"/>
+        <path style="transform-origin:center;animation:steam 2.6s ease-out 1.2s infinite" d="M186 70 q-8 -10 0 -20 q8 -10 0 -22"/>
+      </g>
+      <!-- oven body -->
+      <rect x="56" y="80" width="208" height="172" rx="16" fill="#fff" stroke="#0a0a0a" stroke-width="5"/>
+      <rect x="56" y="80" width="208" height="40" rx="16" fill="#0a0a0a"/>
+      <circle cx="84" cy="100" r="6" fill="var(--chai)"/><circle cx="104" cy="100" r="6" fill="#fff"/><circle cx="124" cy="100" r="6" fill="#fff"/>
+      <!-- oven door -->
+      <rect x="74" y="134" width="172" height="100" rx="12" fill="#1a1a1a" stroke="#0a0a0a" stroke-width="4"/>
+      <rect x="86" y="146" width="148" height="76" rx="8" fill="#2a1c0e" stroke="#0a0a0a" stroke-width="3"/>
+      <!-- glow inside -->
+      <ellipse cx="160" cy="200" rx="64" ry="22" fill="var(--chai)" opacity=".5" style="transform-origin:center;animation:flicker 1.6s ease-in-out infinite"/>
+      <!-- pav loaves baking -->
+      <g>
+        <ellipse cx="132" cy="196" rx="20" ry="13" fill="var(--chai-l)" stroke="#7a4a18" stroke-width="2.5"/>
+        <ellipse cx="160" cy="200" rx="20" ry="13" fill="var(--chai)" stroke="#7a4a18" stroke-width="2.5"/>
+        <ellipse cx="188" cy="196" rx="20" ry="13" fill="var(--chai-l)" stroke="#7a4a18" stroke-width="2.5"/>
+      </g>
+      <!-- handle -->
+      <rect x="100" y="124" width="120" height="9" rx="4.5" fill="#fff" stroke="#0a0a0a" stroke-width="3"/>
+      <!-- legs -->
+      <rect x="70" y="252" width="12" height="20" rx="3" fill="#0a0a0a"/><rect x="238" y="252" width="12" height="20" rx="3" fill="#0a0a0a"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== Marquee ===== -->
+<div class="mq">
+  <div class="mq-inner">
+    <span class="mq-item">LADI PAV <span class="mq-dot">✦</span></span><span class="mq-item">USAL PAV <span class="mq-dot">✦</span></span><span class="mq-item">PATTI PAV <span class="mq-dot">✦</span></span><span class="mq-item">BREAD LOAF <span class="mq-dot">✦</span></span><span class="mq-item">BUN MASKA <span class="mq-dot">✦</span></span><span class="mq-item">FRESH DAILY <span class="mq-dot">✦</span></span>
+    <span class="mq-item">LADI PAV <span class="mq-dot">✦</span></span><span class="mq-item">USAL PAV <span class="mq-dot">✦</span></span><span class="mq-item">PATTI PAV <span class="mq-dot">✦</span></span><span class="mq-item">BREAD LOAF <span class="mq-dot">✦</span></span><span class="mq-item">BUN MASKA <span class="mq-dot">✦</span></span><span class="mq-item">FRESH DAILY <span class="mq-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ===== Products ===== -->
+<section class="sec" id="products">
+  <div class="sec-eyebrow rv">Our Bakes</div>
+  <h2 class="sec-title rv">Fresh From The Oven</h2>
+  <p class="sec-sub rv">Every batch baked the same morning — no preservatives, no frozen stock. Pricing depends on area &amp; distributor commission, so reach out for a quote.</p>
+
+  <div class="products">
+
+    <!-- Ladi Pav 6 -->
+    <article class="pcard rv">
+      <div class="pcard-art">
+        <svg class="illu" viewBox="0 0 120 120" aria-label="Ladi Pav">
+          <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.8s ease-out infinite" d="M44 40 q-6 -7 0 -14"/><path style="transform-origin:center;animation:steam 2.8s ease-out .7s infinite" d="M76 40 q-6 -7 0 -14"/></g>
+          <rect x="18" y="60" width="84" height="38" rx="7" fill="#fff" stroke="#0a0a0a" stroke-width="3"/>
+          <g stroke="#7a4a18" stroke-width="2.4">
+            <rect x="26" y="50" width="22" height="24" rx="8" fill="var(--chai)"/><rect x="49" y="50" width="22" height="24" rx="8" fill="var(--chai-l)"/><rect x="72" y="50" width="22" height="24" rx="8" fill="var(--chai)"/>
+            <rect x="26" y="66" width="22" height="24" rx="8" fill="var(--chai-l)"/><rect x="49" y="66" width="22" height="24" rx="8" fill="var(--chai)"/><rect x="72" y="66" width="22" height="24" rx="8" fill="var(--chai-l)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Ladi Pav</div>
+        <span class="ppack">6 Pack</span>
+        <p class="pdesc">Soft, pillowy Mumbai-style pav — pull-apart buns perfect with vada, bhaji or a smear of butter.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+    <!-- Ladi Pav 9 -->
+    <article class="pcard rv d1">
+      <div class="pcard-art">
+        <svg class="illu" viewBox="0 0 120 120" aria-label="Ladi Pav 9 pack">
+          <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.8s ease-out .3s infinite" d="M60 36 q-6 -7 0 -14"/></g>
+          <rect x="14" y="54" width="92" height="46" rx="7" fill="#fff" stroke="#0a0a0a" stroke-width="3"/>
+          <g stroke="#7a4a18" stroke-width="2.2">
+            <rect x="20" y="46" width="19" height="20" rx="7" fill="var(--chai)"/><rect x="40" y="46" width="19" height="20" rx="7" fill="var(--chai-l)"/><rect x="60" y="46" width="19" height="20" rx="7" fill="var(--chai)"/><rect x="80" y="46" width="19" height="20" rx="7" fill="var(--chai-l)"/>
+            <rect x="20" y="60" width="19" height="20" rx="7" fill="var(--chai-l)"/><rect x="40" y="60" width="19" height="20" rx="7" fill="var(--chai)"/><rect x="60" y="60" width="19" height="20" rx="7" fill="var(--chai-l)"/><rect x="80" y="60" width="19" height="20" rx="7" fill="var(--chai)"/>
+            <rect x="30" y="74" width="19" height="20" rx="7" fill="var(--chai)"/><rect x="50" y="74" width="19" height="20" rx="7" fill="var(--chai-l)"/><rect x="70" y="74" width="19" height="20" rx="7" fill="var(--chai)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Ladi Pav</div>
+        <span class="ppack">9 Pack</span>
+        <p class="pdesc">Our best-seller in a bigger batch — ideal for cafés, canteens and busy grocery shelves. Same soft crumb.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+    <!-- Usal Pav 10 -->
+    <article class="pcard rv d2">
+      <div class="pcard-art">
+        <svg class="illu" viewBox="0 0 120 120" aria-label="Usal Pav">
+          <g fill="none" stroke="#7a4a18" stroke-width="2.5" stroke-linecap="round" opacity=".5"><path style="transform-origin:center;animation:steam 2.8s ease-out infinite" d="M50 50 q-6 -7 0 -14"/><path style="transform-origin:center;animation:steam 2.8s ease-out .6s infinite" d="M70 50 q-6 -7 0 -14"/></g>
+          <!-- bowl of usal -->
+          <path d="M30 64 h60 a30 30 0 0 1 -60 0 z" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3"/>
+          <ellipse cx="60" cy="64" rx="30" ry="8" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="3"/>
+          <circle cx="50" cy="62" r="2.4" fill="#7a4a18"/><circle cx="62" cy="60" r="2.4" fill="#7a4a18"/><circle cx="70" cy="63" r="2.4" fill="#7a4a18"/>
+          <!-- pav on side -->
+          <rect x="70" y="80" width="34" height="20" rx="8" fill="var(--chai)" stroke="#7a4a18" stroke-width="2.4"/>
+          <line x1="87" y1="80" x2="87" y2="100" stroke="#7a4a18" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Usal Pav</div>
+        <span class="ppack">10 Pack</span>
+        <p class="pdesc">Pav portioned just right for usal service — the classic pairing for any Maharashtrian or Gujarati snack menu.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+    <!-- Patti Pav 8 -->
+    <article class="pcard rv d3">
+      <div class="pcard-art">
+        <svg class="illu" viewBox="0 0 120 120" aria-label="Patti Pav">
+          <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.8s ease-out .4s infinite" d="M60 40 q-6 -7 0 -14"/></g>
+          <rect x="16" y="52" width="88" height="50" rx="7" fill="#fff" stroke="#0a0a0a" stroke-width="3"/>
+          <g stroke="#7a4a18" stroke-width="2.4">
+            <rect x="22" y="48" width="76" height="14" rx="7" fill="var(--chai)"/>
+            <rect x="22" y="64" width="76" height="14" rx="7" fill="var(--chai-l)"/>
+            <rect x="22" y="80" width="76" height="14" rx="7" fill="var(--chai)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Patti Pav</div>
+        <span class="ppack">8 Pack</span>
+        <p class="pdesc">Long-style pav, great for dabeli, frankie rolls or sliced for platters. Soft inside, lightly golden crust.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+    <!-- Bread Loaf -->
+    <article class="pcard rv d4">
+      <div class="pcard-art">
+        <svg class="illu" viewBox="0 0 120 120" aria-label="Bread Loaf">
+          <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.8s ease-out infinite" d="M48 42 q-6 -7 0 -14"/><path style="transform-origin:center;animation:steam 2.8s ease-out .7s infinite" d="M72 42 q-6 -7 0 -14"/></g>
+          <path d="M24 92 V62 a36 22 0 0 1 72 0 V92 z" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3"/>
+          <path d="M24 62 a36 22 0 0 1 72 0" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="3"/>
+          <line x1="40" y1="92" x2="40" y2="64" stroke="#7a4a18" stroke-width="2.2"/>
+          <line x1="56" y1="92" x2="56" y2="60" stroke="#7a4a18" stroke-width="2.2"/>
+          <line x1="72" y1="92" x2="72" y2="60" stroke="#7a4a18" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Bread Loaf</div>
+        <span class="ppack">900 gm</span>
+        <p class="pdesc">Classic sandwich loaf — sliced or unsliced. Perfect for sandwiches, toast and snack menus. No preservatives.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+    <!-- Bun Maska (real photo) -->
+    <article class="pcard rv d5">
+      <div class="pcard-art" style="background:none;padding:0">
+        <img src="images/maska bun.jpeg" alt="Bun Maska" loading="lazy"/>
+      </div>
+      <div class="pcard-body">
+        <div class="pname">Bun Maska</div>
+        <span class="ppack">Ready to serve</span>
+        <p class="pdesc">Soft bun layered generously with butter — the timeless Irani-café favourite. Available buttered or as plain buns.</p>
+        <div class="pprice">📦 Pricing on request</div>
+        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== How we make it ===== -->
+<section class="sec make">
+  <div class="sec-eyebrow rv">Behind The Counter</div>
+  <h2 class="sec-title rv">How We Make It</h2>
+  <p class="sec-sub rv">From flour to fresh-baked, every day starts before sunrise. Here's the journey of our pav.</p>
+
+  <div class="steps">
+    <!-- 1 mix -->
+    <div class="step rv">
+      <div class="step-ic">
+        <svg viewBox="0 0 100 100" aria-label="Mix dough">
+          <path d="M22 50 h56 a28 28 0 0 1 -56 0 z" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="4"/>
+          <ellipse cx="50" cy="50" rx="28" ry="7" fill="#fff" stroke="#0a0a0a" stroke-width="4"/>
+          <g style="transform-origin:50px 50px;animation:stir 2.6s linear infinite"><line x1="50" y1="50" x2="66" y2="24" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/><circle cx="66" cy="22" r="5" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3"/></g>
+        </svg>
+      </div>
+      <div class="step-n">Step 1</div><h4>Mix</h4>
+      <p>Flour, yeast &amp; water blended into a smooth dough.</p>
+    </div>
+    <!-- 2 knead/rise -->
+    <div class="step rv d1">
+      <div class="step-ic">
+        <svg viewBox="0 0 100 100" aria-label="Rise">
+          <ellipse cx="50" cy="72" rx="34" ry="9" fill="#eaddca" stroke="#0a0a0a" stroke-width="3"/>
+          <circle cx="50" cy="54" r="24" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="4" style="transform-origin:50px 66px;animation:breathe 2.4s ease-in-out infinite"/>
+          <path d="M40 50 q4 -4 8 0 M54 52 q4 -4 8 0" fill="none" stroke="#7a4a18" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="step-n">Step 2</div><h4>Knead &amp; Rise</h4>
+      <p>Rested &amp; proved until soft and airy.</p>
+    </div>
+    <!-- 3 shape -->
+    <div class="step rv d2">
+      <div class="step-ic">
+        <svg viewBox="0 0 100 100" aria-label="Shape">
+          <g style="animation:roll 2.2s ease-in-out infinite"><rect x="26" y="34" width="48" height="13" rx="6.5" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3.5"/><line x1="22" y1="40" x2="78" y2="40" stroke="#0a0a0a" stroke-width="3.5" stroke-linecap="round"/></g>
+          <rect x="22" y="62" width="56" height="14" rx="7" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="3.5"/>
+        </svg>
+      </div>
+      <div class="step-n">Step 3</div><h4>Shape</h4>
+      <p>Rolled &amp; portioned into pav by hand.</p>
+    </div>
+    <!-- 4 bake -->
+    <div class="step rv d3">
+      <div class="step-ic">
+        <svg viewBox="0 0 100 100" aria-label="Bake">
+          <rect x="24" y="30" width="52" height="50" rx="8" fill="#fff" stroke="#0a0a0a" stroke-width="4"/>
+          <rect x="32" y="46" width="36" height="26" rx="5" fill="#2a1c0e" stroke="#0a0a0a" stroke-width="3"/>
+          <ellipse cx="50" cy="64" rx="15" ry="6" fill="var(--chai)" opacity=".7" style="transform-origin:center;animation:flicker 1.4s ease-in-out infinite"/>
+          <line x1="30" y1="38" x2="70" y2="38" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/>
+          <g fill="none" stroke="var(--chai)" stroke-width="3" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.4s ease-out infinite" d="M44 26 q-5 -6 0 -12"/><path style="transform-origin:center;animation:steam 2.4s ease-out .8s infinite" d="M58 26 q-5 -6 0 -12"/></g>
+        </svg>
+      </div>
+      <div class="step-n">Step 4</div><h4>Bake</h4>
+      <p>Baked golden &amp; fresh in small batches.</p>
+    </div>
+    <!-- 5 deliver -->
+    <div class="step rv d4">
+      <div class="step-ic">
+        <svg viewBox="0 0 100 100" aria-label="Deliver">
+          <g style="animation:drive 2.4s ease-in-out infinite">
+            <rect x="20" y="44" width="34" height="24" rx="3" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3.5"/>
+            <path d="M54 50 h14 l10 10 v8 h-24 z" fill="var(--chai-l)" stroke="#0a0a0a" stroke-width="3.5"/>
+            <circle cx="32" cy="72" r="7" fill="#fff" stroke="#0a0a0a" stroke-width="3.5"/><circle cx="64" cy="72" r="7" fill="#fff" stroke="#0a0a0a" stroke-width="3.5"/>
+          </g>
+          <g stroke="var(--chai)" stroke-width="3" stroke-linecap="round" opacity=".5"><line x1="6" y1="50" x2="16" y2="50"/><line x1="2" y1="60" x2="14" y2="60"/></g>
+        </svg>
+      </div>
+      <div class="step-n">Step 5</div><h4>Deliver</h4>
+      <p>Packed &amp; delivered to your door, daily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Video reels ===== -->
+<section class="sec">
+  <div class="sec-eyebrow rv">Watch &amp; Drool</div>
+  <h2 class="sec-title rv">From Our Kitchen</h2>
+  <p class="sec-sub rv">Real bakes, real mornings. Tap to play.</p>
+
+  <div class="reels">
+    <div class="reel rv" data-reel>
+      <video muted loop playsinline preload="none" poster="images/maska bun.jpeg"><source src="videos/making-pav.mp4" type="video/mp4"></video>
+      <button class="reel-play" aria-label="Play"></button>
+      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:30</div><div class="reel-ttl">Pav, Fresh Out</div></div>
+    </div>
+    <div class="reel rv d1" data-reel>
+      <video muted loop playsinline preload="none" poster="images/sev usal.jpeg"><source src="videos/usal-pav.mp4" type="video/mp4"></video>
+      <button class="reel-play" aria-label="Play"></button>
+      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:22</div><div class="reel-ttl">Usal &amp; Pav</div></div>
+    </div>
+    <div class="reel rv d2" data-reel>
+      <video muted loop playsinline preload="none" poster="images/club sandwich.jpeg"><source src="videos/bread-loaf.mp4" type="video/mp4"></video>
+      <button class="reel-play" aria-label="Play"></button>
+      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:18</div><div class="reel-ttl">Loaf to Sandwich</div></div>
+    </div>
+  </div>
+  <p class="rv" style="font-family:var(--fh);color:var(--gd);font-size:15px;margin-top:20px;text-align:center">More reels on <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" style="color:var(--chai);font-weight:700">Instagram</a> — give us a follow 🎥</p>
+</section>
+
+<!-- ===== Where to find us ===== -->
+<section class="sec find">
+  <div class="sec-eyebrow rv">Stockists</div>
+  <h2 class="sec-title rv">Where To Find Us</h2>
+  <p class="sec-sub rv">Find GJ 06 bakehouse products at these stockists across Western Sydney — tap any store to get directions. More added all the time.</p>
+
+  <div class="find-grid">
+    <!-- sketch map -->
+    <div class="map-wrap rv">
+      <svg viewBox="0 0 360 320" aria-label="Western Sydney delivery map">
+        <!-- region blob -->
+        <path d="M40 120 Q60 60 130 56 Q210 50 250 80 Q320 90 318 160 Q330 230 260 256 Q190 296 120 264 Q40 240 36 180 Q30 145 40 120 Z" fill="rgba(200,129,58,.12)" stroke="var(--chai)" stroke-width="3" stroke-dasharray="3 8"/>
+        <!-- roads -->
+        <g stroke="rgba(255,255,255,.18)" stroke-width="2"><path d="M70 150 H300" fill="none"/><path d="M180 70 V270" fill="none"/><path d="M90 220 Q180 180 290 210" fill="none"/></g>
+        <!-- pins: active -->
+        <g class="pin"><circle class="ring" cx="150" cy="150" r="10" fill="none" stroke="#6fcf97" stroke-width="3"/><path d="M150 132 c-11 0 -18 8 -18 18 c0 13 18 28 18 28 c0 0 18 -15 18 -28 c0 -10 -7 -18 -18 -18 z" fill="#6fcf97" stroke="#0a0a0a" stroke-width="2.5"/><circle cx="150" cy="150" r="6" fill="#0a0a0a"/></g>
+        <g class="pin"><circle class="ring b" cx="222" cy="178" r="10" fill="none" stroke="#6fcf97" stroke-width="3"/><path d="M222 160 c-11 0 -18 8 -18 18 c0 13 18 28 18 28 c0 0 18 -15 18 -28 c0 -10 -7 -18 -18 -18 z" fill="#6fcf97" stroke="#0a0a0a" stroke-width="2.5"/><circle cx="222" cy="178" r="6" fill="#0a0a0a"/></g>
+        <!-- pin: Girraween (live) -->
+        <g class="pin"><circle class="ring b" cx="110" cy="200" r="9" fill="none" stroke="#6fcf97" stroke-width="3"/><path d="M110 200 c-9 0 -15 7 -15 15 c0 11 15 23 15 23 c0 0 15 -12 15 -23 c0 -8 -6 -15 -15 -15 z" fill="#6fcf97" stroke="#0a0a0a" stroke-width="2.5"/><circle cx="110" cy="215" r="5" fill="#0a0a0a"/></g>
+        <!-- pin: more soon -->
+        <g class="pin"><path d="M256 120 c-9 0 -15 7 -15 15 c0 11 15 23 15 23 c0 0 15 -12 15 -23 c0 -8 -6 -15 -15 -15 z" fill="var(--chai)" stroke="#0a0a0a" stroke-width="2.5"/><circle cx="256" cy="135" r="5" fill="#0a0a0a"/></g>
+        <!-- labels -->
+        <text x="150" y="125" fill="#fff" font-family="Caveat,cursive" font-size="16" font-weight="700" text-anchor="middle">Wentworthville</text>
+        <text x="222" y="153" fill="#fff" font-family="Caveat,cursive" font-size="16" font-weight="700" text-anchor="middle">Blacktown</text>
+        <text x="110" y="254" fill="#fff" font-family="Caveat,cursive" font-size="16" font-weight="700" text-anchor="middle">Girraween</text>
+      </svg>
+      <div style="display:flex;gap:18px;justify-content:center;margin-top:6px;font-family:var(--fh);font-weight:700;font-size:13px">
+        <span style="color:#6fcf97">● Live now</span><span style="color:var(--chai-l)">● Coming soon</span>
+      </div>
+    </div>
+
+    <!-- stockist list — compact chips; tap for Google Maps directions -->
+    <div class="stockists rv">
+
+      <div class="stk-area">📍 Wentworthville</div>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Kishan%20Mini%20Mart%2075%20Wentworth%20Ave%20Wentworthville%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Kishan Mini Mart, Wentworthville"><span class="store-name">Kishan Mini Mart</span><span class="store-addr">1/75 Wentworth Ave</span></a>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Udaya%20Supermart%2064-70%20Station%20St%20Wentworthville%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Udaya Supermart, Wentworthville"><span class="store-name">Udaya Supermart</span><span class="store-addr">64–70 Station St</span></a>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Big%20Apple%20Wentworthville%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Big Apple, Wentworthville"><span class="store-name">Big Apple</span><span class="store-addr">Wentworthville NSW</span></a>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Sunrise%20Wentworthville%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Sunrise, Wentworthville"><span class="store-name">Sunrise</span><span class="store-addr">Wentworthville NSW</span></a>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Little%20India%20Supermarket%20326-336%20Great%20Western%20Hwy%20Wentworthville%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Little India, Wentworthville"><span class="store-name">Little India</span><span class="store-addr">326–336 Great Western Hwy</span></a>
+
+      <div class="stk-area">📍 Girraween</div>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Little%20India%20Supermarket%201%2F29%20Amax%20Ave%20Girraween%20NSW%202145" target="_blank" rel="noopener" aria-label="Directions to Little India, Girraween"><span class="store-name">Little India</span><span class="store-addr">1/29 Amax Ave</span></a>
+
+      <div class="stk-area">📍 Blacktown</div>
+      <a class="store" href="https://www.google.com/maps/dir/?api=1&amp;destination=Country%20Fresh%20Blacktown%20NSW" target="_blank" rel="noopener" aria-label="Directions to Country Fresh, Blacktown"><span class="store-name">Country Fresh</span><span class="store-addr">Blacktown NSW</span></a>
+
+      <a class="store enquire" href="#distributor" aria-label="Become a stockist"><span class="store-name">Your store here?</span><span class="store-addr">Stock GJ 06 — get on the map</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Distributor CTA ===== -->
+<section class="sec distcta" id="distributor">
+  <h2 class="rv">Become A <em>Stockist</em></h2>
+  <span class="acc rv"></span>
+  <p class="rv">Want GJ 06 bakehouse products on your shelves? Let's chat pricing, minimums &amp; delivery for your area.</p>
+  <div class="btns rv d1">
+    <a href="mailto:Info.gj06cafe@gmail.com?subject=Bakehouse%20Wholesale%20Enquiry" class="btn solid wg">📧 Email Us</a>
+    <a href="tel:+61424209294" class="btn ghost wg">📞 Call Us</a>
+    <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" class="btn ghost wg">📲 DM on Instagram</a>
+  </div>
+</section>
+
+<!-- ===== Promise notes ===== -->
+<section class="sec">
+  <div class="notes">
+    <div class="note rv"><div class="ni">🕐</div><div><h4>Freshness Promise</h4><p>Baked fresh daily — no preservatives, no frozen stock. Order the day before for next-day delivery.</p></div></div>
+    <div class="note rv d1"><div class="ni">📦</div><div><h4>Minimum Orders</h4><p>Minimum quantities apply per product. Pricing scales with area &amp; volume — ask for a tailored quote.</p></div></div>
+    <div class="note rv d2"><div class="ni">🤝</div><div><h4>Wholesale Accounts</h4><p>Regular accounts get priority scheduling, steady pricing &amp; dedicated support. Set yours up today.</p></div></div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="ft">
+  <div class="ft-contact">
+    <a href="mailto:Info.gj06cafe@gmail.com?subject=Bakehouse%20Enquiry" class="ftb" aria-label="Email us">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></svg>
+    </a>
+    <a href="tel:+61424209294" class="ftb" aria-label="Call us">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1.02l-2.2 2.2z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" class="ftb" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+  </div>
+  © 2025 GJ 06 — A Magical 2D Cafe &amp; Bakehouse, Sydney &nbsp;·&nbsp;
+  <a href="menu.html">Menu</a> · <a href="bakehouse.html">Bakehouse</a> · <a href="reserve.html">Reserve</a>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Nav overlay
+  const hbg=document.getElementById('hbg'), nvo=document.getElementById('nvo'), nvc=document.getElementById('nvc');
+  if(hbg&&nvo){
+    const open=()=>{nvo.classList.add('op');document.body.style.overflow='hidden';hbg.setAttribute('aria-expanded','true');};
+    const close=()=>{nvo.classList.remove('op');document.body.style.overflow='';hbg.setAttribute('aria-expanded','false');};
+    hbg.addEventListener('click',open);
+    if(nvc)nvc.addEventListener('click',close);
+    nvo.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  }
+  // Sticky nav
+  const nb=document.getElementById('nb');
+  if(nb)window.addEventListener('scroll',()=>nb.classList.toggle('sc',window.scrollY>60),{passive:true});
+  // Scroll reveal
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -24px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-(nb?nb.offsetHeight:64),behavior:'smooth'});}
+    });
+  });
+  // Video reels — play on tap, graceful if no source yet
+  document.querySelectorAll('[data-reel]').forEach(reel=>{
+    const v=reel.querySelector('video');
+    reel.addEventListener('click',()=>{
+      if(reel.classList.contains('playing')){v.pause();reel.classList.remove('playing');return;}
+      const p=v.play();
+      if(p&&p.then){p.then(()=>reel.classList.add('playing')).catch(()=>{/* no file yet — keep poster */});}
+    });
+  });
+  // Page transition
+  const pt=document.querySelector('.pt');
+  if(pt){
+    pt.classList.add('ex');setTimeout(()=>pt.classList.remove('ex'),450);
+    document.querySelectorAll('a[href]').forEach(link=>{
+      const h=link.getAttribute('href');
+      if(h&&!h.startsWith('#')&&!h.startsWith('http')&&!h.startsWith('mailto')&&!h.startsWith('tel')){
+        link.addEventListener('click',ev=>{ev.preventDefault();pt.classList.add('en');setTimeout(()=>{window.location.href=h;},430);});
+      }
+    });
+  }
+  window.addEventListener('pageshow',e=>{if(e.persisted&&pt){pt.classList.remove('en','ex');}});
+});
+</script>
+</body>
+</html>
