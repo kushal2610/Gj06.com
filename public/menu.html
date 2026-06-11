@@ -713,6 +713,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load menu from API
   loadMenu();
 });
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    const pt = document.querySelector('.pt');
+    if (pt) { pt.classList.remove('en', 'ex'); pt.style.display = 'none'; }
+  }
+});
 </script>
 </body>
 </html>

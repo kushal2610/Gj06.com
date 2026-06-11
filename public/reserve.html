@@ -244,6 +244,12 @@ async function subO() {
     showSucc('Order received, '+n+'!',tp.split('—')[0].trim()+' confirmed.<br>We\'ll call '+p+' to confirm details. ✦');
   }catch(err){alert('Something went wrong: '+err.message);btn.disabled=false;btn.textContent='Place Order →';}
 }
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    const pt = document.querySelector('.pt');
+    if (pt) { pt.classList.remove('en', 'ex'); pt.style.display = 'none'; }
+  }
+});
 </script>
 </body>
 </html>

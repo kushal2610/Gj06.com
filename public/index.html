@@ -450,11 +450,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const ldr = document.getElementById('ldr');
   if (ldr) setTimeout(() => { ldr.classList.add('hd'); document.body.classList.remove('ld'); }, 3500);
 });
-// Hide loader instantly when browser restores page from bfcache (back/forward)
+// Fix black screen on back/forward navigation (bfcache restore)
 window.addEventListener('pageshow', e => {
   if (e.persisted) {
     const ldr = document.getElementById('ldr');
     if (ldr) { ldr.classList.add('hd'); document.body.classList.remove('ld'); }
+    const pt = document.querySelector('.pt');
+    if (pt) { pt.classList.remove('en', 'ex'); pt.style.display = 'none'; }
   }
 });
 </script>
