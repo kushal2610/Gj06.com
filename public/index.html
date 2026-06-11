@@ -450,6 +450,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const ldr = document.getElementById('ldr');
   if (ldr) setTimeout(() => { ldr.classList.add('hd'); document.body.classList.remove('ld'); }, 3500);
 });
+// Hide loader instantly when browser restores page from bfcache (back/forward)
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    const ldr = document.getElementById('ldr');
+    if (ldr) { ldr.classList.add('hd'); document.body.classList.remove('ld'); }
+  }
+});
 </script>
 </body>
 </html>
