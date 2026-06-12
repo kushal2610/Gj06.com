@@ -4,8 +4,25 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0"/>
 <meta name="description" content="GJ 06 Bakehouse — Fresh-baked Ladi Pav, Usal Pav, Patti Pav, Bread Loaf & Bun Maska. Wholesale & distribution for grocery stores and food businesses across Western Sydney."/>
-<title>Bakehouse — GJ 06</title>
+<title>Bakehouse — GJ 06 | Wholesale Pav, Bread &amp; Buns · Sydney</title>
 <link rel="icon" href="images/GJ 06 logo.png"/>
+<link rel="canonical" href="https://gj06.com/bakehouse.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<meta name="theme-color" content="#0a0a0a"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="GJ 06 — A Magical 2D Cafe &amp; Bakehouse"/>
+<meta property="og:title" content="GJ 06 Bakehouse — Fresh Pav, Bread &amp; Buns"/>
+<meta property="og:description" content="Fresh-baked Ladi Pav, Patti Pav, bread loaves &amp; bun maska. Wholesale &amp; distribution for grocery stores across Western Sydney — find a stockist near you."/>
+<meta property="og:image" content="https://gj06.com/images/maska%20bun.jpeg"/>
+<meta property="og:url" content="https://gj06.com/bakehouse.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="GJ 06 Bakehouse — Fresh Pav, Bread &amp; Buns"/>
+<meta name="twitter:description" content="Fresh-baked pav, bread &amp; buns. Wholesale &amp; distribution across Western Sydney."/>
+<meta name="twitter:image" content="https://gj06.com/images/maska%20bun.jpeg"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"GJ 06 Bakehouse","description":"Fresh-baked pav, bread loaves and bun maska. Wholesale and distribution for grocery stores across Western Sydney.","url":"https://gj06.com/bakehouse.html","logo":"https://gj06.com/images/GJ%2006%20logo.png","image":"https://gj06.com/images/maska%20bun.jpeg","sameAs":["https://www.instagram.com/gj06_2d_cafe_bakehouse"],"areaServed":["Wentworthville NSW","Girraween NSW","Blacktown NSW","Western Sydney"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Product","name":"Ladi Pav"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Patti Pav"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Bread Loaf"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Bun Maska"}}],"parentOrganization":{"@type":"CafeOrCoffeeShop","name":"GJ 06 — A Magical 2D Cafe & Bakehouse","url":"https://gj06.com"}}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap');
 
@@ -33,6 +50,7 @@ section{position:relative}
 #nb{position:fixed;top:0;left:0;right:0;z-index:400;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--white);border-bottom:2.5px solid var(--black);transition:box-shadow .3s}
 #nb.sc{box-shadow:0 4px 0 var(--black)}
 .nl{display:flex;align-items:center;gap:10px;font-family:var(--fd);font-size:28px;letter-spacing:.06em}
+.tm{font-size:.38em;vertical-align:super;margin-left:2px;opacity:.7;font-family:Arial,sans-serif;letter-spacing:0;font-weight:normal;line-height:1}
 .hbg{background:none;border:3px solid var(--black);border-radius:var(--r);width:48px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px;cursor:pointer}
 .hbg span{display:block;height:2.5px;width:22px;background:var(--black);border-radius:2px}
 .hbg span:nth-child(2){width:15px;align-self:flex-start}
@@ -122,7 +140,7 @@ section{position:relative}
 .sec-sub{font-family:var(--fh);font-size:clamp(16px,2.6vw,20px);color:var(--gd);max-width:620px;margin-bottom:38px}
 
 /* ---- Products ---- */
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:24px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .pcard{border:3px solid var(--black);border-radius:var(--r);background:var(--white);box-shadow:5px 5px 0 var(--black);overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
 .pcard:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--black)}
 .pcard-art{background:#f6f6f4;border-bottom:3px solid var(--black);height:170px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
@@ -141,6 +159,10 @@ section{position:relative}
 .pprice{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--black);border-top:2px dashed var(--gm);padding-top:11px;display:flex;align-items:center;gap:6px}
 .pbtn{margin-top:4px;font-family:var(--fd);font-size:16px;letter-spacing:.04em;border:2.5px solid var(--black);border-radius:var(--r);background:var(--white);color:var(--black);padding:9px;text-align:center;transition:background .15s,color .15s}
 .pbtn:hover{background:var(--black);color:#fff}
+.pbtn.soon-btn{border-color:var(--gm);color:var(--gd);background:var(--white);cursor:default}
+.pbtn.soon-btn:hover{background:var(--white);color:var(--gd)}
+.soon-badge{position:absolute;top:9px;right:9px;z-index:3;background:var(--chai);color:#fff;font-family:var(--fh);font-weight:700;font-size:12.5px;padding:3px 11px;border-radius:20px;border:1.5px solid var(--black)}
+.pcard.soon .pcard-art img,.pcard.soon .pcard-art .illu{opacity:.6;filter:grayscale(.25)}
 
 /* ---- How we make it ---- */
 .make{background:var(--gl);border-top:3px solid var(--black);border-bottom:3px solid var(--black)}
@@ -230,10 +252,12 @@ section{position:relative}
   .steps{grid-template-columns:1fr 1fr;gap:26px}
   .steps::before{display:none}
   .find-grid{grid-template-columns:1fr}
+  .products{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:520px){
   .steps{grid-template-columns:1fr}
   .stockists{grid-template-columns:1fr}
+  .products{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -264,7 +288,7 @@ section{position:relative}
 
 <!-- ===== Header ===== -->
 <header id="nb">
-  <a href="index.html" class="nl"><span>GJ 06</span></a>
+  <a href="index.html" class="nl"><span>GJ 06<sup class="tm">™</sup></span></a>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="#distributor" class="btn wg" style="font-size:14px;padding:8px 16px;min-height:38px;">🍞 Stock Us</a>
     <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -357,7 +381,7 @@ section{position:relative}
         <span class="ppack">6 Pack</span>
         <p class="pdesc">Soft, pillowy Mumbai-style pav — pull-apart buns perfect with vada, bhaji or a smear of butter.</p>
         <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <a href="#find" class="pbtn">Enquire to Stock</a>
       </div>
     </article>
 
@@ -379,13 +403,14 @@ section{position:relative}
         <span class="ppack">9 Pack</span>
         <p class="pdesc">Our best-seller in a bigger batch — ideal for cafés, canteens and busy grocery shelves. Same soft crumb.</p>
         <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <a href="#find" class="pbtn">Enquire to Stock</a>
       </div>
     </article>
 
-    <!-- Usal Pav 10 -->
-    <article class="pcard rv d2">
+    <!-- Usal Pav 10 (coming soon) -->
+    <article class="pcard rv d2 soon">
       <div class="pcard-art">
+        <span class="soon-badge">Coming Soon</span>
         <svg class="illu" viewBox="0 0 120 120" aria-label="Usal Pav">
           <g fill="none" stroke="#7a4a18" stroke-width="2.5" stroke-linecap="round" opacity=".5"><path style="transform-origin:center;animation:steam 2.8s ease-out infinite" d="M50 50 q-6 -7 0 -14"/><path style="transform-origin:center;animation:steam 2.8s ease-out .6s infinite" d="M70 50 q-6 -7 0 -14"/></g>
           <!-- bowl of usal -->
@@ -401,8 +426,8 @@ section{position:relative}
         <div class="pname">Usal Pav</div>
         <span class="ppack">10 Pack</span>
         <p class="pdesc">Pav portioned just right for usal service — the classic pairing for any Maharashtrian or Gujarati snack menu.</p>
-        <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <div class="pprice">🗓️ Available soon</div>
+        <span class="pbtn soon-btn">Coming Soon</span>
       </div>
     </article>
 
@@ -424,13 +449,14 @@ section{position:relative}
         <span class="ppack">8 Pack</span>
         <p class="pdesc">Long-style pav, great for dabeli, frankie rolls or sliced for platters. Soft inside, lightly golden crust.</p>
         <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <a href="#find" class="pbtn">Enquire to Stock</a>
       </div>
     </article>
 
-    <!-- Bread Loaf -->
-    <article class="pcard rv d4">
+    <!-- Bread Loaf (coming soon) -->
+    <article class="pcard rv d4 soon">
       <div class="pcard-art">
+        <span class="soon-badge">Coming Soon</span>
         <svg class="illu" viewBox="0 0 120 120" aria-label="Bread Loaf">
           <g fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path style="transform-origin:center;animation:steam 2.8s ease-out infinite" d="M48 42 q-6 -7 0 -14"/><path style="transform-origin:center;animation:steam 2.8s ease-out .7s infinite" d="M72 42 q-6 -7 0 -14"/></g>
           <path d="M24 92 V62 a36 22 0 0 1 72 0 V92 z" fill="var(--chai)" stroke="#0a0a0a" stroke-width="3"/>
@@ -444,22 +470,23 @@ section{position:relative}
         <div class="pname">Bread Loaf</div>
         <span class="ppack">900 gm</span>
         <p class="pdesc">Classic sandwich loaf — sliced or unsliced. Perfect for sandwiches, toast and snack menus. No preservatives.</p>
-        <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <div class="pprice">🗓️ Available soon</div>
+        <span class="pbtn soon-btn">Coming Soon</span>
       </div>
     </article>
 
-    <!-- Bun Maska (real photo) -->
-    <article class="pcard rv d5">
+    <!-- Bun Maska (coming soon) -->
+    <article class="pcard rv d5 soon">
       <div class="pcard-art" style="background:none;padding:0">
+        <span class="soon-badge">Coming Soon</span>
         <img src="images/maska bun.jpeg" alt="Bun Maska" loading="lazy"/>
       </div>
       <div class="pcard-body">
         <div class="pname">Bun Maska</div>
         <span class="ppack">Ready to serve</span>
         <p class="pdesc">Soft bun layered generously with butter — the timeless Irani-café favourite. Available buttered or as plain buns.</p>
-        <div class="pprice">📦 Pricing on request</div>
-        <a href="#distributor" class="pbtn">Enquire to Stock</a>
+        <div class="pprice">🗓️ Available soon</div>
+        <span class="pbtn soon-btn">Coming Soon</span>
       </div>
     </article>
 
@@ -544,30 +571,30 @@ section{position:relative}
 <section class="sec">
   <div class="sec-eyebrow rv">Watch &amp; Drool</div>
   <h2 class="sec-title rv">From Our Kitchen</h2>
-  <p class="sec-sub rv">Real bakes, real mornings. Tap to play.</p>
+  <p class="sec-sub rv">Real bakes, real mornings — tap to watch on Instagram.</p>
 
   <div class="reels">
-    <div class="reel rv" data-reel>
-      <video muted loop playsinline preload="none" poster="images/maska bun.jpeg"><source src="videos/making-pav.mp4" type="video/mp4"></video>
-      <button class="reel-play" aria-label="Play"></button>
-      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:30</div><div class="reel-ttl">Pav, Fresh Out</div></div>
-    </div>
-    <div class="reel rv d1" data-reel>
-      <video muted loop playsinline preload="none" poster="images/sev usal.jpeg"><source src="videos/usal-pav.mp4" type="video/mp4"></video>
-      <button class="reel-play" aria-label="Play"></button>
-      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:22</div><div class="reel-ttl">Usal &amp; Pav</div></div>
-    </div>
-    <div class="reel rv d2" data-reel>
-      <video muted loop playsinline preload="none" poster="images/club sandwich.jpeg"><source src="videos/bread-loaf.mp4" type="video/mp4"></video>
-      <button class="reel-play" aria-label="Play"></button>
-      <div class="reel-ov"><div class="reel-tag">▶ REEL · 0:18</div><div class="reel-ttl">Loaf to Sandwich</div></div>
-    </div>
+    <a class="reel rv" href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" aria-label="Watch GJ 06 reels on Instagram">
+      <img src="images/maska bun.jpeg" alt="Buttered bun maska" loading="lazy"/>
+      <span class="reel-play" aria-hidden="true"></span>
+      <div class="reel-ov"><div class="reel-tag">▶ WATCH ON IG</div><div class="reel-ttl">Bun, Buttered</div></div>
+    </a>
+    <a class="reel rv d1" href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" aria-label="Watch GJ 06 reels on Instagram">
+      <img src="images/sev usal.jpeg" alt="Usal served with pav" loading="lazy"/>
+      <span class="reel-play" aria-hidden="true"></span>
+      <div class="reel-ov"><div class="reel-tag">▶ WATCH ON IG</div><div class="reel-ttl">Usal &amp; Pav</div></div>
+    </a>
+    <a class="reel rv d2" href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" aria-label="Watch GJ 06 reels on Instagram">
+      <img src="images/club sandwich.jpeg" alt="Sandwich made from fresh loaf" loading="lazy"/>
+      <span class="reel-play" aria-hidden="true"></span>
+      <div class="reel-ov"><div class="reel-tag">▶ WATCH ON IG</div><div class="reel-ttl">Loaf to Sandwich</div></div>
+    </a>
   </div>
-  <p class="rv" style="font-family:var(--fh);color:var(--gd);font-size:15px;margin-top:20px;text-align:center">More reels on <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" style="color:var(--chai);font-weight:700">Instagram</a> — give us a follow 🎥</p>
+  <p class="rv" style="font-family:var(--fh);color:var(--gd);font-size:15px;margin-top:20px;text-align:center">Follow <a href="https://www.instagram.com/gj06_2d_cafe_bakehouse" target="_blank" rel="noopener" style="color:var(--chai);font-weight:700">@gj06_2d_cafe_bakehouse</a> for fresh reels 🎥</p>
 </section>
 
 <!-- ===== Where to find us ===== -->
-<section class="sec find">
+<section class="sec find" id="find">
   <div class="sec-eyebrow rv">Stockists</div>
   <h2 class="sec-title rv">Where To Find Us</h2>
   <p class="sec-sub rv">Find GJ 06 bakehouse products at these stockists across Western Sydney — tap any store to get directions. More added all the time.</p>
@@ -679,15 +706,6 @@ document.addEventListener('DOMContentLoaded', () => {
     a.addEventListener('click',e=>{
       const t=document.querySelector(a.getAttribute('href'));
       if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-(nb?nb.offsetHeight:64),behavior:'smooth'});}
-    });
-  });
-  // Video reels — play on tap, graceful if no source yet
-  document.querySelectorAll('[data-reel]').forEach(reel=>{
-    const v=reel.querySelector('video');
-    reel.addEventListener('click',()=>{
-      if(reel.classList.contains('playing')){v.pause();reel.classList.remove('playing');return;}
-      const p=v.play();
-      if(p&&p.then){p.then(()=>reel.classList.add('playing')).catch(()=>{/* no file yet — keep poster */});}
     });
   });
   // Page transition
