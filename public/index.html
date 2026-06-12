@@ -381,6 +381,24 @@ body.ld{overflow:hidden}
   #about .floaty{animation:float-y 4s ease-in-out infinite;}
   #about .floaty.f2{animation-delay:1s}
   #about .path-draw{stroke-dasharray:600;animation:draw-line 4s ease-in-out infinite alternate;}
+  /* OUR FAMILY — real photos */
+  #about .family{margin:60px 0 40px;position:relative;z-index:2;}
+  #about .family-intro{text-align:center;margin-bottom:36px;}
+  #about .family-intro h3{font-family:var(--fd);font-size:clamp(34px,6vw,54px);color:white;letter-spacing:.05em;margin-bottom:8px;line-height:1;}
+  #about .family-intro p{font-family:var(--fh);font-size:18px;opacity:.55;margin:0;}
+  #about .family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:start;max-width:980px;margin:0 auto;}
+  #about .fam-card{position:relative;background:#fff;padding:14px 14px 18px;border-radius:3px;box-shadow:0 18px 50px -20px rgba(0,0,0,.55),0 2px 0 rgba(0,0,0,.35);transform:rotate(-1.6deg);transition:transform .45s ease, box-shadow .45s ease;margin:0;}
+  #about .fam-card:nth-child(2){transform:rotate(.9deg);margin-top:30px;}
+  #about .fam-card:nth-child(3){transform:rotate(-.6deg);margin-top:8px;}
+  #about .fam-card:hover{transform:rotate(0deg) translateY(-4px);box-shadow:0 28px 60px -18px rgba(0,0,0,.7),0 2px 0 rgba(0,0,0,.35);}
+  #about .fam-photo{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#111;}
+  #about .fam-cap{font-family:var(--fh);font-size:21px;color:#0a0a0a;text-align:center;margin:12px 4px 0;line-height:1.25;}
+  #about .fam-cap small{display:block;font-family:var(--fb);font-size:11px;letter-spacing:.18em;opacity:.55;margin-top:3px;text-transform:uppercase;}
+  @media (max-width:780px){
+    #about .family-grid{grid-template-columns:1fr;max-width:340px;gap:34px;}
+    #about .fam-card,#about .fam-card:nth-child(2),#about .fam-card:nth-child(3){margin-top:0;transform:rotate(-1deg);}
+    #about .fam-card:nth-child(2){transform:rotate(1deg);}
+  }
 </style>
 <section class="sec" id="about" style="background:var(--black);color:white;">
 
@@ -579,6 +597,30 @@ body.ld{overflow:hidden}
         <div class="founder-role">Founder · The Artist</div>
         <div class="founder-name">HIRWA DARJI</div>
         <p class="founder-bio">The hands behind Sydney's most beloved chai masala, and the eyes behind every line of 2D art on these walls. Hirwa turned a café into a story you can step inside.</p>
+      </div>
+    </div>
+
+    <!-- OUR FAMILY — real photos -->
+    <div class="story-divider rv"><span class="line"></span><span class="star">OUR FAMILY</span><span class="line"></span></div>
+
+    <div class="family rv">
+      <div class="family-intro">
+        <h3>BEHIND THE COUNTER</h3>
+        <p>Real faces. Real chai. Real moments from inside GJ 06.</p>
+      </div>
+      <div class="family-grid">
+        <figure class="fam-card">
+          <img class="fam-photo" src="/images/founders-couple.jpg" alt="Siddharth and Hirwa Darji, founders of GJ 06" loading="lazy">
+          <figcaption class="fam-cap">Siddharth &amp; Hirwa<small>The Founders</small></figcaption>
+        </figure>
+        <figure class="fam-card">
+          <img class="fam-photo" src="/images/hirwa-mural.jpg" alt="Hirwa in front of one of her hand-drawn 2D murals at GJ 06" loading="lazy">
+          <figcaption class="fam-cap">Hirwa &amp; her wall<small>Every line — her hand</small></figcaption>
+        </figure>
+        <figure class="fam-card">
+          <img class="fam-photo" src="/images/team-family.jpg" alt="The GJ 06 cafe team celebrating together with a cake" loading="lazy">
+          <figcaption class="fam-cap">The whole crew<small>The GJ 06 family</small></figcaption>
+        </figure>
       </div>
     </div>
 
