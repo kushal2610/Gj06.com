@@ -6,8 +6,15 @@ export default async function handler(req, res) {
     return res.status(200).json({ publicKey: process.env.VAPID_PUBLIC_KEY || '' });
   }
 
-  // POST — save push subscription
+  // POST — save push subscription (kitchen staff only)
   if (req.method === 'POST') {
+    // Gate subscriptions behind the admin password so the public can't
+    // sign their own devices up to receive every order/reservation alert.
+    const provided = req.headers['x-admin-password'];
+    if (!process.env.ADMIN_PASSWORD || provided !== process.env.ADMIN_PASSWORD) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
     const { endpoint, p256dh, auth } = req.body;
 
     if (!endpoint || !p256dh || !auth) {

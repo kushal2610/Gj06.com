@@ -93,23 +93,40 @@ input:focus,select:focus{box-shadow:3px 3px 0 var(--black)}
 <script>
 const cart = JSON.parse(localStorage.getItem('gj06_cart') || '[]');
 
-// Build pickup time options (next 3 days, 15-min slots 8am–9pm)
+// Build pickup time options anchored to Sydney time (not the visitor's device clock).
+// Trading hours: 8am–9pm daily, 15-min slots, next 3 days.
+const OPEN_HOUR = 8;   // first slot hour (24h, Sydney)
+const CLOSE_HOUR = 21; // slots stop before this hour (last is 8:45 PM)
+const TZ = 'Australia/Sydney';
+
+// Current wall-clock in Sydney as {y,mo,d,h,min} regardless of where the visitor is.
+function sydneyNow() {
+  const parts = new Intl.DateTimeFormat('en-AU', {
+    timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hour12: false,
+  }).formatToParts(new Date()).reduce((a, p) => (a[p.type] = p.value, a), {});
+  // hour can come back as '24' at midnight in some engines — normalise to 0.
+  const h = (parts.hour === '24' ? 0 : Number(parts.hour));
+  return { y: +parts.year, mo: +parts.month, d: +parts.day, h, min: +parts.minute };
+}
+
 function buildPickupSlots() {
   const sel = document.getElementById('pickup');
-  const now = new Date();
+  const now = sydneyNow();
+  // Anchor to a UTC date built from Sydney Y/M/D so day-stepping & weekday labels are stable.
+  const anchor = new Date(Date.UTC(now.y, now.mo - 1, now.d));
+  const nowMinutes = now.h * 60 + now.min;
+
   for (let d = 0; d < 3; d++) {
-    const day = new Date(now);
-    day.setDate(day.getDate() + d);
-    const label = d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : day.toLocaleDateString('en-AU', {weekday:'long'});
-    for (let h = 8; h < 21; h++) {
+    const day = new Date(anchor);
+    day.setUTCDate(day.getUTCDate() + d);
+    const label = d === 0 ? 'Today' : d === 1 ? 'Tomorrow'
+      : day.toLocaleDateString('en-AU', { weekday: 'long', timeZone: 'UTC' });
+
+    for (let h = OPEN_HOUR; h < CLOSE_HOUR; h++) {
       for (let m = 0; m < 60; m += 15) {
-        if (d === 0) {
-          const slot = new Date(day);
-          slot.setHours(h, m, 0, 0);
-          if (slot <= now) continue; // skip past slots
-        }
-        const hh = String(h).padStart(2,'0');
-        const mm = String(m).padStart(2,'0');
+        if (d === 0 && (h * 60 + m) <= nowMinutes) continue; // skip past slots today
+        const mm = String(m).padStart(2, '0');
         const ampm = h < 12 ? 'AM' : 'PM';
         const h12 = h % 12 || 12;
         const opt = document.createElement('option');
@@ -118,6 +135,13 @@ function buildPickupSlots() {
         sel.appendChild(opt);
       }
     }
+  }
+
+  if (!sel.options.length) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = 'No pickup times available — please try again later';
+    sel.appendChild(opt);
   }
 }
 

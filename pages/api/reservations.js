@@ -11,9 +11,15 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Guests may arrive as "8+" or "2 — A cozy duo" from the form — coerce to an int.
+  const guestsNum = parseInt(String(guests), 10);
+  if (!Number.isInteger(guestsNum) || guestsNum < 1) {
+    return res.status(400).json({ error: 'Invalid number of guests' });
+  }
+
   const { data, error } = await supabaseAdmin
     .from('reservations')
-    .insert({ customer_name, customer_phone, customer_email: customer_email || null, date, time, guests, notes: notes || null, status: 'pending' })
+    .insert({ customer_name, customer_phone, customer_email: customer_email || null, date, time, guests: guestsNum, notes: notes || null, status: 'pending' })
     .select()
     .single();
 
