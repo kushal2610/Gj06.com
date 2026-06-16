@@ -27,43 +27,46 @@ export default async function handler(req, res) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    const { customer_name, customer_phone, customer_email, pickup_time, items: itemsJson } = session.metadata;
-    const items = JSON.parse(itemsJson);
-    const total = session.amount_total / 100;
+    const orderId = session.metadata?.order_id || session.client_reference_id;
 
-    // Save order to Supabase
+    if (!orderId) {
+      console.error('Webhook: no order_id on session', session.id);
+      return res.status(200).json({ received: true }); // nothing to reconcile; don't make Stripe retry
+    }
+
+    // Idempotent: only a row still 'pending' gets confirmed. Stripe retries become no-ops.
     const { data: order, error } = await supabaseAdmin
       .from('orders')
-      .insert({
-        stripe_payment_id: session.id,
-        customer_name,
-        customer_phone,
-        customer_email,
-        items,
-        total,
-        pickup_time,
-        status: 'confirmed',
-      })
+      .update({ status: 'confirmed', stripe_payment_id: session.id })
+      .eq('id', orderId)
+      .eq('status', 'pending')
       .select()
       .single();
 
-    if (error) console.error('Order insert error:', error);
+    if (error) {
+      // No matching pending row → already processed (retry) OR genuinely missing.
+      if (error.code === 'PGRST116') {
+        return res.status(200).json({ received: true, alreadyProcessed: true });
+      }
+      console.error('Order confirm error:', error);
+      return res.status(500).json({ error: 'Failed to confirm order' }); // let Stripe retry
+    }
 
     // Push notification to kitchen
     await sendPushToAll({
-      title: `New order — $${total.toFixed(2)}`,
-      body: `${customer_name} · Pickup: ${pickup_time}`,
+      title: `New order — $${Number(order.total).toFixed(2)}`,
+      body: `${order.customer_name} · Pickup: ${order.pickup_time}`,
       tag: 'new-order',
     }).catch(err => console.error('Push error:', err));
 
     // Confirmation email to customer
     await sendOrderConfirmation({
-      customer_name,
-      customer_email,
-      items,
-      total,
-      pickup_time,
-      order_id: order?.id,
+      customer_name: order.customer_name,
+      customer_email: order.customer_email,
+      items: order.items,
+      total: order.total,
+      pickup_time: order.pickup_time,
+      order_id: order.id,
     }).catch(err => console.error('Email error:', err));
   }
 

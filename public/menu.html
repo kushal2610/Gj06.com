@@ -521,12 +521,14 @@ function renderCategory(cat) {
     const isUnavailable = !item.available;
     const tagMap = {
       bestseller: '<span class="item-tag tag-bestseller">★ Bestseller</span>',
+      popular:    '<span class="item-tag tag-bestseller">★ Popular</span>',
       new:        '<span class="item-tag tag-new">✦ New</span>',
       spicy:      '<span class="item-tag tag-spicy">🌶 Spicy</span>',
+      vegan:      '<span class="item-tag tag-new">🌱 Vegan</span>',
     };
     const tagHTML = isUnavailable
       ? '<span class="sold-out-badge">Sold Out</span>'
-      : (item.tag ? tagMap[item.tag] || '' : '');
+      : (item.tag ? tagMap[String(item.tag).toLowerCase()] || '' : '');
 
     const priceStr = `$${Number(item.price).toFixed(2).replace('.00', '')}`;
 

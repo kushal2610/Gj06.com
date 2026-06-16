@@ -8,16 +8,38 @@
 <style>
 :root{--black:#0a0a0a;--white:#fff;--r:4px 14px 6px 10px / 10px 6px 14px 4px;--fd:'Bebas Neue',sans-serif;--fh:'Caveat',cursive;--fb:'Patrick Hand',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 20px 60px}
 .card{max-width:400px;width:100%;text-align:center}
 h1{font-family:var(--fd);font-size:clamp(48px,12vw,80px);letter-spacing:.04em;margin-bottom:6px}
-.sub{font-family:var(--fh);font-size:16px;opacity:.5;margin-bottom:36px}
+.sub{font-family:var(--fh);font-size:16px;opacity:.5;margin-bottom:28px}
 .btn{display:block;width:100%;font-family:var(--fd);font-size:20px;letter-spacing:.05em;padding:16px;border:3px solid var(--white);border-radius:var(--r);background:var(--white);color:var(--black);cursor:pointer;margin-bottom:14px;transition:transform .15s}
 .btn:hover{transform:translate(2px,-2px)}
 .btn.outline{background:transparent;color:var(--white)}
 .status{font-family:var(--fh);font-size:17px;margin-top:20px;min-height:28px;opacity:.7}
 .status.ok{color:#2ecc71;opacity:1}
 .status.err{color:#e74c3c;opacity:1}
+/* ── Live orders ── */
+.orders{max-width:560px;width:100%;margin-top:36px}
+.orders-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.orders-hd h2{font-family:var(--fd);font-size:30px;letter-spacing:.04em}
+.refresh{font-family:var(--fh);font-size:14px;opacity:.5;background:none;border:none;color:var(--white);cursor:pointer;text-decoration:underline}
+.ord{border:2.5px solid rgba(255,255,255,.3);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;text-align:left}
+.ord-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.ord-name{font-family:var(--fd);font-size:22px;letter-spacing:.03em}
+.ord-meta{font-family:var(--fh);font-size:15px;opacity:.65;margin-top:2px}
+.ord-total{font-family:var(--fd);font-size:24px;flex-shrink:0}
+.ord-items{font-size:14px;line-height:1.7;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);padding:10px 0;margin-bottom:12px}
+.ord-items .qx{opacity:.6;margin-right:6px}
+.badge{display:inline-block;font-family:var(--fh);font-size:13px;font-weight:700;padding:2px 12px;border-radius:20px;border:1.5px solid var(--white);margin-top:4px}
+.badge.confirmed{background:var(--white);color:var(--black)}
+.badge.preparing{background:transparent;color:var(--white)}
+.badge.ready{background:#2ecc71;border-color:#2ecc71;color:var(--black)}
+.ord-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.act{font-family:var(--fh);font-size:14px;font-weight:700;padding:8px 16px;border:2px solid var(--white);border-radius:6px 12px 6px 10px/10px 6px 12px 6px;background:none;color:var(--white);cursor:pointer;transition:transform .12s}
+.act:hover{transform:translate(1px,-1px)}
+.act.primary{background:var(--white);color:var(--black)}
+.act.danger{border-color:#e74c3c;color:#e74c3c}
+.ord-empty{font-family:var(--fh);font-size:17px;opacity:.45;text-align:center;padding:30px 0}
 </style>
 </head>
 <body>
@@ -30,6 +52,18 @@ h1{font-family:var(--fd);font-size:clamp(48px,12vw,80px);letter-spacing:.04em;ma
   <button class="btn outline" id="unsubBtn" onclick="unsubscribe()" style="display:none">Disable Alerts</button>
 
   <p class="status" id="status">Checking status...</p>
+</div>
+
+<section class="orders" id="ordersSection" style="display:none">
+  <div class="orders-hd">
+    <h2>Live Orders</h2>
+    <button class="refresh" onclick="loadOrders()">↻ Refresh</button>
+  </div>
+  <div id="ordersList"><div class="ord-empty">Loading orders…</div></div>
+</section>
+
+<div class="card" id="viewOrdersCard" style="margin-top:32px">
+  <button class="btn outline" id="viewOrdersBtn" onclick="startOrders()">View Live Orders</button>
 </div>
 
 <script>
@@ -58,6 +92,13 @@ async function subscribe() {
     const { publicKey } = await fetch('/api/push').then(r => r.json());
     if (!publicKey) { setStatus('Push not configured yet — add VAPID keys to Vercel.', 'err'); return; }
 
+    // Kitchen staff password — gates who can receive order alerts.
+    let pw = localStorage.getItem('gj06_admin_pw');
+    if (!pw) {
+      pw = prompt('Staff password to enable order alerts:');
+      if (!pw) { setStatus('Cancelled.', 'err'); return; }
+    }
+
     const permission = await Notification.requestPermission();
     if (permission !== 'granted') { setStatus('Permission denied. Enable notifications in browser settings.', 'err'); return; }
 
@@ -69,14 +110,23 @@ async function subscribe() {
     const { endpoint, keys: { p256dh, auth } } = sub.toJSON();
     const res = await fetch('/api/push', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
       body: JSON.stringify({ endpoint, p256dh, auth }),
     });
 
+    if (res.status === 401) {
+      localStorage.removeItem('gj06_admin_pw');
+      await sub.unsubscribe().catch(() => {});
+      setStatus('Wrong password. Try again.', 'err');
+      return;
+    }
+
     if (res.ok) {
+      localStorage.setItem('gj06_admin_pw', pw);
       setStatus('✦ Alerts active — orders will notify this device.', 'ok');
       document.getElementById('subBtn').style.display = 'none';
       document.getElementById('unsubBtn').style.display = 'block';
+      startOrders();
     } else {
       setStatus('Failed to save subscription. Try again.', 'err');
     }
@@ -105,7 +155,105 @@ function urlBase64ToUint8Array(base64String) {
   return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
 }
 
+// ── Live orders ───────────────────────────────────────
+let ordersTimer = null;
+
+function adminPw() {
+  let pw = localStorage.getItem('gj06_admin_pw');
+  if (!pw) {
+    pw = prompt('Staff password to view orders:');
+    if (pw) localStorage.setItem('gj06_admin_pw', pw);
+  }
+  return pw;
+}
+
+function startOrders() {
+  if (!adminPw()) return;
+  document.getElementById('viewOrdersCard').style.display = 'none';
+  document.getElementById('ordersSection').style.display = 'block';
+  loadOrders();
+  if (!ordersTimer) ordersTimer = setInterval(loadOrders, 30000); // poll every 30s
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+async function loadOrders() {
+  const pw = localStorage.getItem('gj06_admin_pw');
+  if (!pw) return;
+  try {
+    const res = await fetch('/api/orders', { headers: { 'X-Admin-Password': pw } });
+    if (res.status === 401) {
+      localStorage.removeItem('gj06_admin_pw');
+      clearInterval(ordersTimer); ordersTimer = null;
+      document.getElementById('ordersSection').style.display = 'none';
+      document.getElementById('viewOrdersCard').style.display = 'block';
+      return;
+    }
+    const { orders } = await res.json();
+    renderOrders(orders || []);
+  } catch (err) {
+    console.error('Load orders failed:', err);
+  }
+}
+
+function renderOrders(orders) {
+  const list = document.getElementById('ordersList');
+  if (!orders.length) {
+    list.innerHTML = '<div class="ord-empty">No active orders right now. ✦</div>';
+    return;
+  }
+  list.innerHTML = orders.map(o => {
+    const items = (o.items || []).map(i =>
+      `<div><span class="qx">${i.qty}×</span>${escapeHtml(i.name)}</div>`
+    ).join('');
+    const next = o.status === 'confirmed'
+      ? `<button class="act primary" onclick="setOrder('${o.id}','preparing')">Start preparing →</button>`
+      : o.status === 'preparing'
+      ? `<button class="act primary" onclick="setOrder('${o.id}','ready')">Mark ready →</button>`
+      : o.status === 'ready'
+      ? `<button class="act primary" onclick="setOrder('${o.id}','completed')">Picked up ✓</button>`
+      : '';
+    return `
+      <div class="ord">
+        <div class="ord-top">
+          <div>
+            <div class="ord-name">${escapeHtml(o.customer_name)}</div>
+            <div class="ord-meta">📞 ${escapeHtml(o.customer_phone || '—')} · Pickup: ${escapeHtml(o.pickup_time || '—')}</div>
+            <span class="badge ${o.status}">${o.status}</span>
+          </div>
+          <div class="ord-total">$${Number(o.total).toFixed(2)}</div>
+        </div>
+        <div class="ord-items">${items}</div>
+        <div class="ord-actions">
+          ${next}
+          <button class="act danger" onclick="setOrder('${o.id}','cancelled')">Cancel</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function setOrder(id, status) {
+  const pw = localStorage.getItem('gj06_admin_pw');
+  if (!pw) return;
+  if (status === 'cancelled' && !confirm('Cancel this order?')) return;
+  try {
+    const res = await fetch('/api/orders', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
+      body: JSON.stringify({ id, status }),
+    });
+    if (!res.ok) throw new Error('Update failed');
+    loadOrders();
+  } catch (err) {
+    alert('Could not update order: ' + err.message);
+  }
+}
+
 init();
+// Auto-show orders if this device already has the staff password stored.
+if (localStorage.getItem('gj06_admin_pw')) startOrders();
 </script>
 </body>
 </html>

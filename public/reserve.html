@@ -125,7 +125,7 @@ textarea.fi{resize:vertical;min-height:96px}
       <div class="fg"><label class="fl">Date</label><input class="fi" id="rd" type="date"/></div>
       <div class="fg"><label class="fl">Time</label><select class="fi" id="rt"><option value="" disabled selected>Pick a time</option><option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option></select></div>
     </div>
-    <div class="fg"><label class="fl">Number of Guests</label><select class="fi" id="rg"><option value="" disabled selected>How many?</option><option>1 — Solo &amp; loving it</option><option>2 — A cozy duo</option><option>3 — A small gang</option><option>4 — Four flat friends</option><option>5</option><option>6</option><option>7</option><option>8+</option></select></div>
+    <div class="fg"><label class="fl">Number of Guests</label><select class="fi" id="rg"><option value="" disabled selected>How many?</option><option value="1">1 — Solo &amp; loving it</option><option value="2">2 — A cozy duo</option><option value="3">3 — A small gang</option><option value="4">4 — Four flat friends</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8+</option></select></div>
     <div class="fg"><label class="fl">Special requests? <span style="opacity:.5;font-weight:400;">(optional)</span></label><textarea class="fi" id="rnotes" placeholder="Allergies, occasion, window seat... we'll try our best ✦"></textarea></div>
     <button onclick="subR()" class="btn wg" style="font-size:21px;padding:17px;width:100%;justify-content:center;margin-top:4px;">Confirm Reservation →</button>
     <p style="font-family:var(--fh);font-size:13px;text-align:center;opacity:.5;">We'll call you within 30 minutes to confirm.</p>
@@ -135,8 +135,7 @@ textarea.fi{resize:vertical;min-height:96px}
   <div class="fsec" id="fo">
     <div class="fg"><label class="fl">Your Name</label><input class="fi" id="on" type="text" placeholder="What do we call you?" autocomplete="name"/></div>
     <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="op" type="tel" placeholder="+61 000 000 000" autocomplete="tel"/></div>
-    <div class="fg"><label class="fl">Order Type</label><select class="fi" id="ot" onchange="toggleAddr()"><option value="" disabled selected>Pickup or delivery?</option><option>Takeaway — I'll come pick it up</option><option>Delivery — Bring it to me</option></select></div>
-    <div class="fg" id="addrg" style="display:none;"><label class="fl">Delivery Address</label><textarea class="fi" id="oa" placeholder="Your full address..."></textarea></div>
+    <div class="fg"><label class="fl">Order Type</label><select class="fi" id="ot"><option value="" disabled selected>How will you get it?</option><option>Takeaway — I'll come pick it up</option></select><p style="font-family:var(--fh);font-size:13px;opacity:.55;margin-top:6px;">Want it delivered? Order via UberEats or DoorDash from our <a href="menu.html" style="text-decoration:underline;">menu page</a>.</p></div>
     <div class="fg"><label class="fl">When do you want it?</label><select class="fi" id="owhen"><option value="" disabled selected>Preferred time</option><option>ASAP — as fast as you can!</option><option>30 minutes</option><option>1 hour</option><option>Schedule for later...</option></select></div>
     <div class="fg"><label class="fl">Your Order</label><textarea class="fi" id="oi" placeholder="e.g. 2x Masala Chai, 1x Bombay Style Vadapav, 1x Signature Burger..." style="min-height:110px;"></textarea></div>
     <div style="display:flex;gap:14px;align-items:center;padding:14px 16px;border:3px solid var(--black);border-radius:var(--r);background:var(--gl);">
@@ -201,10 +200,6 @@ function sw(t) {
   document.getElementById('fo').classList.toggle('fa',!isR);
   document.getElementById('succ').classList.remove('sh');
 }
-function toggleAddr() {
-  const v = document.getElementById('ot').value;
-  document.getElementById('addrg').style.display = v.includes('Delivery') ? 'flex' : 'none';
-}
 function showSucc(title, msg) {
   document.getElementById('fr').classList.remove('fa');
   document.getElementById('fo').classList.remove('fa');
@@ -234,15 +229,16 @@ async function subO() {
   const n=document.getElementById('on').value.trim(),
         p=document.getElementById('op').value.trim(),
         tp=document.getElementById('ot').value,
+        w=document.getElementById('owhen').value,
         i=document.getElementById('oi').value.trim();
-  if(!n||!p||!tp||!i){alert('Please fill in your name, phone, order type, and items!');return;}
+  if(!n||!p||!tp||!w||!i){alert('Please fill in your name, phone, order type, pickup time, and items!');return;}
   const btn=document.querySelector('#fo .btn');
   btn.disabled=true;btn.textContent='Placing order...';
   try{
     const res=await fetch('/api/reservations',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({customer_name:n,customer_phone:p,date:new Date().toISOString().slice(0,10),time:tp,guests:'1',notes:'Order: '+i})});
+      body:JSON.stringify({customer_name:n,customer_phone:p,date:new Date().toISOString().slice(0,10),time:w,guests:'1',notes:'Pickup order — '+tp.split('—')[0].trim()+' · When: '+w+'\nItems: '+i})});
     if(!res.ok)throw new Error((await res.json()).error||'Failed');
-    showSucc('Order received, '+n+'!',tp.split('—')[0].trim()+' confirmed.<br>We\'ll call '+p+' to confirm details. ✦');
+    showSucc('Order received, '+n+'!','Pickup order confirmed.<br>We\'ll call '+p+' to confirm details. ✦');
   }catch(err){alert('Something went wrong: '+err.message);btn.disabled=false;btn.textContent='Place Order →';}
 }
 window.addEventListener('pageshow', e => {
