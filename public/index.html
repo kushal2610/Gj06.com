@@ -399,6 +399,40 @@ body.ld{overflow:hidden}
     #about .fam-card,#about .fam-card:nth-child(2),#about .fam-card:nth-child(3){margin-top:0;transform:rotate(-1deg);}
     #about .fam-card:nth-child(2){transform:rotate(1deg);}
   }
+
+  /* real photo inside a chapter frame (full colour) */
+  #about .chap-art.photo{padding:0;border:none;background:none;overflow:visible;}
+  #about .chap-art.photo .ph-frame{position:relative;width:100%;height:100%;border-radius:var(--r);overflow:hidden;border:1.5px solid rgba(255,255,255,.22);box-shadow:0 24px 60px -28px rgba(0,0,0,.85);}
+  #about .chap-art.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+  #about .chap-art.photo:hover img{transform:scale(1.03);}
+  #about .chap-art.photo .ph-cap{position:absolute;left:16px;bottom:14px;font-family:var(--fh);font-size:19px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.95);letter-spacing:.02em;z-index:2;}
+  #about .chap-art.photo .ph-cap small{display:block;font-family:var(--fb);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-top:2px;}
+  #about .chap-art.photo .ph-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 45%);z-index:1;}
+
+  /* founders feature (real photo + bios) */
+  #about .founders-feature{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center;margin:6px auto 8px;max-width:980px;}
+  #about .ff-photo{background:#fff;padding:14px 14px 18px;border-radius:3px;box-shadow:0 26px 60px -22px rgba(0,0,0,.7),0 2px 0 rgba(0,0,0,.35);transform:rotate(-1.6deg);transition:transform .45s ease;}
+  #about .ff-photo:hover{transform:rotate(0deg) translateY(-4px);}
+  #about .ff-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#111;}
+  #about .ff-photo figcaption{font-family:var(--fh);font-size:22px;color:#0a0a0a;text-align:center;margin-top:10px;line-height:1.2;}
+  #about .ff-photo figcaption small{display:block;font-family:var(--fb);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:3px;}
+  #about .ff-bios{display:flex;flex-direction:column;gap:24px;}
+  #about .ff-bio{border-left:2px solid rgba(255,255,255,.4);padding-left:18px;}
+  #about .ff-bio .ff-role{font-family:var(--fh);font-size:18px;color:rgba(255,255,255,.6);}
+  #about .ff-bio .ff-name{font-family:var(--fd);font-size:34px;letter-spacing:.04em;color:#fff;line-height:1;margin:2px 0 8px;}
+  #about .ff-bio p{font-family:var(--fb);font-size:15px;line-height:1.7;opacity:.86;}
+
+  /* finale with team photo background */
+  #about .finale.with-bg{position:relative;overflow:hidden;border:1.5px solid rgba(255,255,255,.28);}
+  #about .finale .finale-bg{position:absolute;inset:0;z-index:0;}
+  #about .finale .finale-bg img{width:100%;height:100%;object-fit:cover;object-position:center 35%;}
+  #about .finale .finale-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,10,.84),rgba(10,10,10,.66) 48%,rgba(10,10,10,.9));}
+  #about .finale.with-bg > *:not(.finale-bg):not(.finale-overlay){position:relative;z-index:2;}
+
+  @media(max-width:760px){
+    #about .founders-feature{grid-template-columns:1fr;gap:24px;}
+    #about .ff-photo{max-width:300px;margin:0 auto;}
+  }
 </style>
 <section class="sec" id="about" style="background:var(--black);color:white;">
 
@@ -411,42 +445,34 @@ body.ld{overflow:hidden}
 
     <!-- HEADER -->
     <div class="rv" style="text-align:center;margin-bottom:20px;">
-      <div class="story-tag">— the people behind the chai —</div>
+      <div class="story-tag">&mdash; the people behind the chai &mdash;</div>
       <h2 class="story-title">OUR STORY</h2>
-      <p class="story-sub">A tale of two dreamers, one little bread called Ladi Pav, and a magical 2D world built from chai, memory, and love.</p>
+      <p class="story-sub">Two dreamers, one little bread called Ladi&nbsp;Pav, and a hand-drawn 2D world &mdash; built from chai, memory, and a stubborn kind of love.</p>
     </div>
 
-    <div class="story-divider rv"><span class="line"></span><span class="star">✦ ✦ ✦</span><span class="line"></span></div>
+    <div class="story-divider rv"><span class="line"></span><span class="star">&#10022; &#10022; &#10022;</span><span class="line"></span></div>
 
-    <!-- CHAPTER 1: He arrived -->
+    <!-- CHAPTER 1 -->
     <div class="chap rv">
-      <div class="chap-art">
-        <div class="year-badge">2015</div>
+      <div class="chap-art"><div class="year-badge">2015</div>
         <svg viewBox="0 0 300 300" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- subtle ground -->
           <path d="M30 240 Q150 235 270 240" stroke-dasharray="4 6" opacity=".4"/>
-          <!-- dotted journey arc -->
           <path class="path-draw" d="M40 200 Q150 60 260 180" stroke="white" stroke-dasharray="3 7" opacity=".7"/>
-          <!-- starting dot -->
           <circle cx="40" cy="200" r="5" fill="white" stroke="none"/>
           <text x="20" y="225" font-family="Caveat" font-size="16" fill="white" stroke="none" opacity=".8">India</text>
-          <!-- destination dot -->
           <circle cx="260" cy="180" r="5" fill="white" stroke="none"/>
           <text x="220" y="210" font-family="Caveat" font-size="16" fill="white" stroke="none" opacity=".8">Sydney</text>
-          <!-- plane -->
           <g class="floaty" transform="translate(150 110)">
             <path d="M-30 0 L30 -8 L40 0 L30 8 Z" fill="white" stroke="white"/>
             <path d="M-20 -2 L-30 -18 L-12 -4 Z" fill="white" stroke="white"/>
             <path d="M-20 2 L-30 18 L-12 4 Z" fill="white" stroke="white"/>
             <circle cx="20" cy="0" r="2" fill="#0a0a0a" stroke="none"/>
           </g>
-          <!-- suitcase -->
           <g transform="translate(40 240)">
             <rect x="-22" y="-18" width="44" height="32" rx="3"/>
             <rect x="-10" y="-26" width="20" height="10" rx="2" fill="none"/>
             <line x1="-22" y1="-4" x2="22" y2="-4"/>
           </g>
-          <!-- stars -->
           <g fill="white" stroke="none" class="floaty f2" opacity=".8">
             <circle cx="80" cy="80" r="2"/><circle cx="220" cy="60" r="2.5"/><circle cx="180" cy="120" r="1.5"/>
           </g>
@@ -455,152 +481,84 @@ body.ld{overflow:hidden}
       <div class="chap-body">
         <span class="chap-num">Chapter One</span>
         <h3 class="chap-title">A NEW BEGINNING.</h3>
-        <p>In 2015, <strong>Siddharth Darji</strong> stepped off a plane in a country he'd never called home — an immigrant with two suitcases, a head full of recipes, and a heart full of dreams.</p>
-        <p>He didn't know it yet, but a little bread called Ladi Pav was about to change everything.</p>
+        <p>In 2015, <strong>Siddharth Darji</strong> stepped off a plane with two suitcases and a head full of recipes &mdash; an immigrant chasing a dream he couldn't yet name.</p>
         <span class="chap-quote">"You can leave home, but home never leaves you."</span>
       </div>
     </div>
 
-    <!-- CHAPTER 2: Decade of baking -->
+    <!-- CHAPTER 2 (merged: a decade of baking + the Ladi Pav) -->
     <div class="chap flip rv">
-      <div class="chap-art">
-        <svg viewBox="0 0 300 300" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- clock face -->
-          <circle cx="150" cy="150" r="100" opacity=".25"/>
-          <g opacity=".4" font-family="Bebas Neue" font-size="14" fill="white" stroke="none">
-            <text x="146" y="65" text-anchor="middle">12</text>
-            <text x="240" y="156" text-anchor="middle">3</text>
-            <text x="150" y="248" text-anchor="middle">6</text>
-            <text x="60" y="156" text-anchor="middle">9</text>
-          </g>
-          <!-- ticks -->
-          <g opacity=".5">
-            <line x1="150" y1="60" x2="150" y2="70"/><line x1="240" y1="150" x2="230" y2="150"/>
-            <line x1="150" y1="240" x2="150" y2="230"/><line x1="60" y1="150" x2="70" y2="150"/>
-          </g>
-          <!-- hands -->
-          <line x1="150" y1="150" x2="150" y2="90" stroke="white" stroke-width="2.5"/>
-          <line x1="150" y1="150" x2="200" y2="150" stroke="white" stroke-width="2.5"/>
-          <circle cx="150" cy="150" r="4" fill="white" stroke="none"/>
-          <!-- bread oven below -->
-          <g transform="translate(150 200)">
-            <path d="M-50 30 L50 30 L50 0 Q50 -30 0 -30 Q-50 -30 -50 0 Z" fill="rgba(255,255,255,.05)"/>
-            <line x1="-45" y1="5" x2="45" y2="5"/>
-            <circle cx="0" cy="-10" r="3" fill="white" stroke="none"/>
-          </g>
-          <!-- floating loaves -->
-          <g class="floaty" transform="translate(70 110)">
-            <ellipse cx="0" cy="0" rx="22" ry="14" fill="rgba(255,255,255,.05)"/>
-            <line x1="-12" y1="-4" x2="12" y2="-4"/><line x1="-10" y1="2" x2="10" y2="2"/>
-          </g>
-          <g class="floaty f2" transform="translate(230 110)">
-            <ellipse cx="0" cy="0" rx="22" ry="14" fill="rgba(255,255,255,.05)"/>
-            <line x1="-12" y1="-4" x2="12" y2="-4"/><line x1="-10" y1="2" x2="10" y2="2"/>
-          </g>
-        </svg>
+      <div class="chap-art photo">
+        <div class="ph-frame">
+          <img src="/images/bun-king.jpg" alt="Siddharth Darji holding a fresh tray of golden Ladi Pav buns" loading="lazy">
+          <div class="ph-grad"></div>
+          <div class="ph-cap">Sydney's Bun King<small>No one makes pav better</small></div>
+        </div>
       </div>
       <div class="chap-body">
         <span class="chap-num">Chapter Two</span>
-        <h3 class="chap-title">A DECADE BEFORE SUNRISE.</h3>
-        <p>For nearly <strong>ten years</strong>, Siddharth woke before the city did. Working in a bakery, flour on his hands, learning every crease and crust of the craft.</p>
-        <p>The ovens spoke a language he understood. With every loaf, he carried the flavours and memories of home a little farther across the ocean.</p>
+        <h3 class="chap-title">THE BREAD THAT CALLED HIM.</h3>
+        <p>For nearly <strong>ten years</strong> he woke before the city did, flour on his hands &mdash; until one bread called the loudest: the <strong>Ladi Pav</strong>. Soft, iconic, unmistakably Indian, because pav isn't just bread, <em>it's an emotion</em>: childhood you can hold in your hand.</p>
+        <span class="chap-quote">A dream rose like dough &mdash; quietly, then all at once.</span>
       </div>
     </div>
 
-    <!-- CHAPTER 3: The Ladi Pav calling -->
+    <!-- CHAPTER 3 (chai, real photo) -->
     <div class="chap rv">
-      <div class="chap-art">
-        <svg viewBox="0 0 300 300" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- tray -->
-          <ellipse cx="150" cy="230" rx="120" ry="14" opacity=".25"/>
-          <!-- 6 pav rolls in 2 rows of 3 -->
-          <g transform="translate(60 150)">
-            <g><ellipse cx="0" cy="0" rx="32" ry="28" fill="rgba(255,255,255,.08)"/><path d="M-14 -8 L14 -8 M-14 8 L14 8 M0 -22 L0 22" opacity=".5"/></g>
-            <g transform="translate(65 0)"><ellipse cx="0" cy="0" rx="32" ry="28" fill="rgba(255,255,255,.08)"/><path d="M-14 -8 L14 -8 M-14 8 L14 8 M0 -22 L0 22" opacity=".5"/></g>
-            <g transform="translate(130 0)"><ellipse cx="0" cy="0" rx="32" ry="28" fill="rgba(255,255,255,.08)"/><path d="M-14 -8 L14 -8 M-14 8 L14 8 M0 -22 L0 22" opacity=".5"/></g>
-          </g>
-          <g transform="translate(92 200)">
-            <g><ellipse cx="0" cy="0" rx="28" ry="22" fill="rgba(255,255,255,.06)"/></g>
-            <g transform="translate(58 0)"><ellipse cx="0" cy="0" rx="28" ry="22" fill="rgba(255,255,255,.06)"/></g>
-          </g>
-          <!-- heart above -->
-          <g transform="translate(150 80)" class="floaty">
-            <path d="M0 18 C-22 4 -22 -16 -10 -16 C-4 -16 0 -10 0 -6 C0 -10 4 -16 10 -16 C22 -16 22 4 0 18 Z" fill="white" stroke="white"/>
-          </g>
-          <!-- sparkles -->
-          <g fill="white" stroke="none" opacity=".6">
-            <circle cx="40" cy="100" r="2"/><circle cx="260" cy="90" r="2"/><circle cx="240" cy="60" r="1.5"/>
-          </g>
-        </svg>
+      <div class="chap-art photo">
+        <div class="ph-frame">
+          <img src="/images/gj06-chai.jpg" alt="A cutting glass of GJ 06 chai held up among golden autumn leaves" loading="lazy">
+          <div class="ph-grad"></div>
+          <div class="ph-cap">Her chai masala<small>The brew that won the street</small></div>
+        </div>
       </div>
       <div class="chap-body">
         <span class="chap-num">Chapter Three</span>
-        <h3 class="chap-title">THE BREAD THAT CALLED HIM.</h3>
-        <p>One bread always called the loudest — the <strong>Ladi Pav</strong>. Soft, iconic, unmistakably Indian. The bread of every street stall, every wedding plate, every late-night craving.</p>
-        <p>Pav isn't just bread. <em>Pav is an emotion.</em> It's vada-pav with friends after school. It's pav-bhaji on a rainy evening. It's childhood, folded into something you can hold in your hand.</p>
-        <span class="chap-quote">A dream rose like dough — quietly, then all at once.</span>
+        <h3 class="chap-title">SHE BREWED THE SOUL.</h3>
+        <p>Then came <strong>Hirwa Darji</strong> &mdash; partner, dreamer, and the quiet engine behind it all. From her kitchen came the recipes that won the neighbourhood over, led by a <em>homemade chai masala</em> that turned regulars into family.</p>
       </div>
     </div>
 
-    <!-- FOUNDER SPOTLIGHTS -->
+    <!-- CHAPTER 4 (murals, real photo) -->
+    <div class="chap flip rv">
+      <div class="chap-art photo">
+        <div class="ph-frame">
+          <img src="/images/mural-paint.jpg" alt="Hirwa Darji hand-painting the 2D mural on the cafe wall" loading="lazy">
+          <div class="ph-grad"></div>
+          <div class="ph-cap">Line by line, by hand<small>Hirwa &amp; the murals</small></div>
+        </div>
+      </div>
+      <div class="chap-body">
+        <span class="chap-num">Chapter Four</span>
+        <h3 class="chap-title">SHE DREW THE WORLD.</h3>
+        <p>She didn't stop at the plate. Hirwa <strong>hand-drew every line on these walls</strong> &mdash; the cups, the clouds, the chai-stained skylines. The flat, friendly 2D world you walk into is entirely hers.</p>
+        <span class="chap-quote">"Life is complicated enough. In here, everything is flat, clear, and honest."</span>
+      </div>
+    </div>
+
+    <!-- MEET THE FOUNDERS -->
     <div class="story-divider rv"><span class="line"></span><span class="star">MEET THE FOUNDERS</span><span class="line"></span></div>
 
-    <div class="founders">
-      <div class="founder rv">
-        <div class="founder-art">
-          <svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <!-- chef hat -->
-            <path d="M28 38 Q22 22 38 22 Q42 12 50 14 Q58 12 62 22 Q78 22 72 38 Z" fill="rgba(255,255,255,.08)"/>
-            <line x1="28" y1="38" x2="72" y2="38"/>
-            <!-- face -->
-            <circle cx="50" cy="58" r="16" fill="rgba(255,255,255,.05)"/>
-            <!-- eyes -->
-            <circle cx="44" cy="56" r="1.5" fill="white" stroke="none"/>
-            <circle cx="56" cy="56" r="1.5" fill="white" stroke="none"/>
-            <!-- smile -->
-            <path d="M44 64 Q50 68 56 64"/>
-            <!-- beard hint -->
-            <path d="M42 66 Q50 76 58 66" opacity=".5"/>
-            <!-- shoulders -->
-            <path d="M30 90 Q50 78 70 90"/>
-          </svg>
+    <div class="founders-feature rv">
+      <figure class="ff-photo">
+        <img src="/images/founders-couple.jpg" alt="Siddharth and Hirwa Darji, founders of GJ 06" loading="lazy">
+        <figcaption>Siddharth &amp; Hirwa<small>The Founders</small></figcaption>
+      </figure>
+      <div class="ff-bios">
+        <div class="ff-bio">
+          <div class="ff-role">Founder &middot; The Baker</div>
+          <div class="ff-name">SIDDHARTH DARJI</div>
+          <p>The dreamer who chased flour across an ocean. A decade at the oven shaped the heart of GJ 06 &mdash; and his obsession with getting the pav <em>just right</em>.</p>
         </div>
-        <div class="founder-role">Founder · The Baker</div>
-        <div class="founder-name">SIDDHARTH DARJI</div>
-        <p class="founder-bio">The dreamer who chased flour across an ocean. Siddharth's nearly decade of baking shaped the heart of GJ 06 — and every loaf that leaves the bakehouse carries his obsession with getting the pav <em>just right</em>.</p>
-      </div>
-
-      <div class="founder rv">
-        <div class="founder-art">
-          <svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <!-- hair bun -->
-            <circle cx="50" cy="26" r="10" fill="rgba(255,255,255,.12)"/>
-            <!-- face -->
-            <circle cx="50" cy="50" r="18" fill="rgba(255,255,255,.05)"/>
-            <!-- hair sides -->
-            <path d="M32 50 Q28 36 40 32" />
-            <path d="M68 50 Q72 36 60 32" />
-            <!-- eyes -->
-            <circle cx="44" cy="48" r="1.5" fill="white" stroke="none"/>
-            <circle cx="56" cy="48" r="1.5" fill="white" stroke="none"/>
-            <!-- smile -->
-            <path d="M44 58 Q50 62 56 58"/>
-            <!-- small bindi -->
-            <circle cx="50" cy="38" r="1.2" fill="white" stroke="none"/>
-            <!-- paintbrush behind -->
-            <line x1="78" y1="20" x2="92" y2="6" stroke-width="2"/>
-            <path d="M76 22 L82 16 L84 18 L78 24 Z" fill="rgba(255,255,255,.25)"/>
-            <!-- shoulders -->
-            <path d="M30 90 Q50 78 70 90"/>
-          </svg>
+        <div class="ff-bio">
+          <div class="ff-role">Founder &middot; The Artist</div>
+          <div class="ff-name">HIRWA DARJI</div>
+          <p>The hands behind Sydney's most-loved chai masala, and the pen behind every line of 2D art on these walls. She turned a caf&eacute; into a story you can step inside.</p>
         </div>
-        <div class="founder-role">Founder · The Artist</div>
-        <div class="founder-name">HIRWA DARJI</div>
-        <p class="founder-bio">The hands behind Sydney's most beloved chai masala, and the eyes behind every line of 2D art on these walls. Hirwa turned a café into a story you can step inside.</p>
       </div>
     </div>
 
-    <!-- OUR FAMILY — real photos -->
+    <!-- OUR FAMILY scrapbook -->
     <div class="story-divider rv"><span class="line"></span><span class="star">OUR FAMILY</span><span class="line"></span></div>
 
     <div class="family rv">
@@ -610,124 +568,32 @@ body.ld{overflow:hidden}
       </div>
       <div class="family-grid">
         <figure class="fam-card">
-          <img class="fam-photo" src="/images/founders-couple.jpg" alt="Siddharth and Hirwa Darji, founders of GJ 06" loading="lazy">
-          <figcaption class="fam-cap">Siddharth &amp; Hirwa<small>The Founders</small></figcaption>
+          <img class="fam-photo" src="/images/opening.jpg" alt="Siddharth and Hirwa at the GJ 06 opening" loading="lazy">
+          <figcaption class="fam-cap">Opening day<small>The doors swing open</small></figcaption>
         </figure>
         <figure class="fam-card">
-          <img class="fam-photo" src="/images/hirwa-mural.jpg" alt="Hirwa in front of one of her hand-drawn 2D murals at GJ 06" loading="lazy">
-          <figcaption class="fam-cap">Hirwa &amp; her wall<small>Every line — her hand</small></figcaption>
+          <img class="fam-photo" src="/images/hirwa-mural.jpg" alt="Hirwa in front of one of her hand-drawn 2D murals" loading="lazy">
+          <figcaption class="fam-cap">Hirwa &amp; her wall<small>Every line &mdash; her hand</small></figcaption>
         </figure>
         <figure class="fam-card">
-          <img class="fam-photo" src="/images/team-family.jpg" alt="The GJ 06 cafe team celebrating together with a cake" loading="lazy">
-          <figcaption class="fam-cap">The whole crew<small>The GJ 06 family</small></figcaption>
+          <img class="fam-photo" src="/images/hirwa-portrait.jpg" alt="Hirwa Darji, co-founder of GJ 06" loading="lazy">
+          <figcaption class="fam-cap">Hirwa<small>The artist &amp; the chai</small></figcaption>
         </figure>
       </div>
     </div>
 
-    <!-- CHAPTER 4: Hirwa's chai -->
-    <div class="chap flip rv">
-      <div class="chap-art">
-        <svg viewBox="0 0 300 300" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- steam -->
-          <g stroke="white" stroke-width="2.5" opacity=".7" fill="none">
-            <path class="steam" d="M130 80 Q125 65 135 50 Q145 35 135 20"/>
-            <path class="steam s2" d="M155 85 Q150 70 160 55 Q170 40 160 25"/>
-            <path class="steam s3" d="M180 80 Q175 65 185 50 Q195 35 185 20"/>
-          </g>
-          <!-- cup -->
-          <g transform="translate(150 180)">
-            <path d="M-60 -20 Q-60 60 -10 60 L10 60 Q60 60 60 -20 Z" fill="rgba(255,255,255,.08)"/>
-            <ellipse cx="0" cy="-20" rx="60" ry="14" fill="rgba(255,255,255,.14)"/>
-            <ellipse cx="0" cy="-20" rx="60" ry="14" stroke="white" fill="none"/>
-            <!-- handle -->
-            <path d="M60 -10 Q90 -10 90 15 Q90 35 60 35"/>
-            <!-- saucer -->
-            <ellipse cx="0" cy="70" rx="80" ry="10" fill="rgba(255,255,255,.05)"/>
-          </g>
-          <!-- spice pods around -->
-          <g fill="white" stroke="white" opacity=".75">
-            <g transform="translate(50 230)"><ellipse cx="0" cy="0" rx="10" ry="5"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#0a0a0a" stroke-width="1" opacity=".5"/></g>
-            <g transform="translate(250 235)"><ellipse cx="0" cy="0" rx="10" ry="5"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#0a0a0a" stroke-width="1" opacity=".5"/></g>
-            <g transform="translate(40 110)"><circle cx="0" cy="0" r="4"/></g>
-            <g transform="translate(260 100)"><circle cx="0" cy="0" r="3"/></g>
-          </g>
-          <!-- cinnamon stick -->
-          <g transform="translate(80 260) rotate(-20)" stroke="white" fill="none" opacity=".8">
-            <rect x="-20" y="-3" width="40" height="6" rx="1.5"/>
-            <line x1="-14" y1="0" x2="14" y2="0" opacity=".5"/>
-          </g>
-        </svg>
-      </div>
-      <div class="chap-body">
-        <span class="chap-num">Chapter Four</span>
-        <h3 class="chap-title">SHE BREWED THE SOUL.</h3>
-        <p>Enter <strong>Hirwa Darji</strong> — partner, dreamer, and the quiet engine behind it all. Her support and dedication became the foundation the café was built on.</p>
-        <p>From her kitchen came handcrafted recipes that won the community over fast — but it was her <em>signature homemade chai masala</em> that turned regulars into family. Today, it's known as <strong>one of Sydney's most beloved chai experiences.</strong></p>
-      </div>
-    </div>
-
-    <!-- CHAPTER 5: Art -->
-    <div class="chap rv">
-      <div class="chap-art">
-        <svg viewBox="0 0 300 300" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- canvas frame -->
-          <rect x="50" y="50" width="180" height="180" rx="6" fill="rgba(255,255,255,.03)"/>
-          <!-- 2D doodles inside -->
-          <g stroke="white" stroke-width="2" opacity=".85">
-            <!-- little house -->
-            <path d="M80 160 L80 200 L120 200 L120 160 Z"/>
-            <path d="M75 160 L100 135 L125 160"/>
-            <rect x="92" y="180" width="14" height="20"/>
-            <!-- cup -->
-            <g transform="translate(170 175)">
-              <path d="M-12 -8 L-12 10 Q-12 14 -8 14 L8 14 Q12 14 12 10 L12 -8 Z"/>
-              <path d="M12 -4 Q18 -4 18 2 Q18 8 12 8"/>
-            </g>
-            <!-- sun -->
-            <circle cx="180" cy="100" r="14"/>
-            <g stroke-width="1.5"><line x1="180" y1="78" x2="180" y2="70"/><line x1="180" y1="122" x2="180" y2="130"/><line x1="158" y1="100" x2="150" y2="100"/><line x1="202" y1="100" x2="210" y2="100"/></g>
-            <!-- star -->
-            <path d="M100 90 L104 100 L114 102 L106 109 L108 119 L100 114 L92 119 L94 109 L86 102 L96 100 Z" fill="rgba(255,255,255,.25)"/>
-          </g>
-          <!-- easel -->
-          <g opacity=".5">
-            <line x1="60" y1="240" x2="80" y2="200"/>
-            <line x1="240" y1="240" x2="220" y2="200"/>
-            <line x1="150" y1="230" x2="150" y2="270"/>
-            <line x1="120" y1="270" x2="180" y2="270"/>
-          </g>
-          <!-- paintbrush -->
-          <g class="floaty" transform="translate(255 60) rotate(40)">
-            <rect x="-2" y="-30" width="4" height="40" fill="white" stroke="white"/>
-            <path d="M-6 10 L6 10 L4 22 L-4 22 Z" fill="white" stroke="white"/>
-            <line x1="-3" y1="22" x2="3" y2="30" stroke="white"/>
-          </g>
-          <!-- palette dabs -->
-          <g fill="white" stroke="none" opacity=".5">
-            <circle cx="40" cy="80" r="4"/><circle cx="50" cy="100" r="3"/><circle cx="34" cy="120" r="2.5"/>
-          </g>
-        </svg>
-      </div>
-      <div class="chap-body">
-        <span class="chap-num">Chapter Five</span>
-        <h3 class="chap-title">SHE DREW THE WORLD.</h3>
-        <p>Hirwa's art didn't stop at the plate. She picked up her pen and <strong>hand-drew every illustration on these walls</strong> — the cups, the clouds, the chai-stained skylines.</p>
-        <p>The flat, friendly 2D universe you walk into? That's hers. A one-of-a-kind atmosphere, unlike any other café in Australia.</p>
-        <span class="chap-quote">"Life is complicated enough. In here, everything is flat, clear, and honest."</span>
-      </div>
-    </div>
-
-    <!-- FINALE -->
-    <div class="finale rv">
-      <div class="finale-mark">✦ ✦ ✦</div>
+    <!-- FINALE (team photo background) -->
+    <div class="finale with-bg rv">
+      <div class="finale-bg"><img src="/images/team-family.jpg" alt="The GJ 06 team celebrating together"></div>
+      <div class="finale-overlay"></div>
+      <div class="finale-mark">&#10022; &#10022; &#10022;</div>
       <h3>TOGETHER, THEY BUILT HOME.</h3>
-      <p>GJ 06 is not just a café. It's culture, nostalgia, creativity, and warmth — a living scrapbook of two people who refused to forget where they came from, and chose to share it with everyone who walks through the door.</p>
-      <p>Every cup of chai. Every soft, golden pav. Every hand-drawn line on the wall. It all tells the same story — of <strong style="color:white;border-bottom:1px solid rgba(255,255,255,.4);">passion</strong>, <strong style="color:white;border-bottom:1px solid rgba(255,255,255,.4);">perseverance</strong>, and <strong style="color:white;border-bottom:1px solid rgba(255,255,255,.4);">home</strong>.</p>
-      <div class="signoff">— Siddharth &amp; Hirwa</div>
+      <p>GJ 06 isn't just a caf&eacute;. It's culture, nostalgia, and warmth &mdash; a living scrapbook of two people who refused to forget where they came from, and chose to share it with everyone who walks through the door.</p>
+      <div class="signoff">&mdash; Siddharth &amp; Hirwa</div>
     </div>
 
   </div>
-</section>
+  </section>
 
 <div class="wavy" style="background:var(--black);"><svg viewBox="0 0 1440 32" preserveAspectRatio="none" style="display:block;width:100%"><path d="M0,16 Q180,0 360,16 Q540,32 720,16 Q900,0 1080,16 Q1260,32 1440,16 L1440,32 L0,32 Z" fill="white"/></svg></div>
 
@@ -868,4 +734,4 @@ window.addEventListener('pageshow', e => {
 });
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
