@@ -130,6 +130,11 @@ textarea.fi{resize:vertical;min-height:96px}
     <button onclick="subR()" class="btn wg" style="font-size:21px;padding:17px;width:100%;justify-content:center;margin-top:4px;">Confirm Reservation →</button>
     <p style="font-family:var(--fh);font-size:13px;text-align:center;opacity:.5;">We'll call you within 30 minutes to confirm.</p>
   </div>
+  <script>function checkTimeImmediate(input) {
+    // Triggers the browser's native error bubble immediately if invalid
+    if (!input.checkValidity()) {input.reportValidity();} 
+  }
+</script>
 
   <!-- Order form -->
   <!-- <div class="fsec" id="fo">
