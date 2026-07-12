@@ -31,6 +31,7 @@ h1{font-family:var(--fd);font-size:clamp(48px,12vw,80px);letter-spacing:.04em;ma
 .ord-items{font-size:14px;line-height:1.7;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);padding:10px 0;margin-bottom:12px}
 .ord-items .qx{opacity:.6;margin-right:6px}
 .badge{display:inline-block;font-family:var(--fh);font-size:13px;font-weight:700;padding:2px 12px;border-radius:20px;border:1.5px solid var(--white);margin-top:4px}
+.badge.pending{background:transparent;color:var(--white);border-style:dashed}
 .badge.confirmed{background:var(--white);color:var(--black)}
 .badge.preparing{background:transparent;color:var(--white)}
 .badge.ready{background:#2ecc71;border-color:#2ecc71;color:var(--black)}
@@ -60,10 +61,16 @@ h1{font-family:var(--fd);font-size:clamp(48px,12vw,80px);letter-spacing:.04em;ma
     <button class="refresh" onclick="loadOrders()">↻ Refresh</button>
   </div>
   <div id="ordersList"><div class="ord-empty">Loading orders…</div></div>
+
+  <div class="orders-hd" style="margin-top:40px">
+    <h2>Reservations</h2>
+    <button class="refresh" onclick="loadReservations()">↻ Refresh</button>
+  </div>
+  <div id="resList"><div class="ord-empty">Loading reservations…</div></div>
 </section>
 
 <div class="card" id="viewOrdersCard" style="margin-top:32px">
-  <button class="btn outline" id="viewOrdersBtn" onclick="startOrders()">View Live Orders</button>
+  <button class="btn outline" id="viewOrdersBtn" onclick="startOrders()">View Orders &amp; Reservations</button>
 </div>
 
 <script>
@@ -172,7 +179,8 @@ function startOrders() {
   document.getElementById('viewOrdersCard').style.display = 'none';
   document.getElementById('ordersSection').style.display = 'block';
   loadOrders();
-  if (!ordersTimer) ordersTimer = setInterval(loadOrders, 30000); // poll every 30s
+  loadReservations();
+  if (!ordersTimer) ordersTimer = setInterval(() => { loadOrders(); loadReservations(); }, 30000); // poll every 30s
 }
 
 function escapeHtml(s) {
@@ -248,6 +256,68 @@ async function setOrder(id, status) {
     loadOrders();
   } catch (err) {
     alert('Could not update order: ' + err.message);
+  }
+}
+
+// ── Reservations ──────────────────────────────────────
+async function loadReservations() {
+  const pw = localStorage.getItem('gj06_admin_pw');
+  if (!pw) return;
+  try {
+    const res = await fetch('/api/reservations', { headers: { 'X-Admin-Password': pw } });
+    if (res.status === 401) return; // loadOrders handles the logout flow
+    const { reservations } = await res.json();
+    renderReservations(reservations || []);
+  } catch (err) {
+    console.error('Load reservations failed:', err);
+  }
+}
+
+function renderReservations(items) {
+  const list = document.getElementById('resList');
+  if (!items.length) {
+    list.innerHTML = '<div class="ord-empty">No upcoming reservations. ✦</div>';
+    return;
+  }
+  list.innerHTML = items.map(r => {
+    const next = r.status === 'pending'
+      ? `<button class="act primary" onclick="setReservation('${r.id}','confirmed')">Confirm ✓</button>`
+      : r.status === 'confirmed'
+      ? `<button class="act primary" onclick="setReservation('${r.id}','completed')">Seated ✓</button>`
+      : '';
+    return `
+      <div class="ord">
+        <div class="ord-top">
+          <div>
+            <div class="ord-name">${escapeHtml(r.customer_name)}</div>
+            <div class="ord-meta">📞 ${escapeHtml(r.customer_phone || '—')} · ${escapeHtml(r.date || '')} at ${escapeHtml(r.time || '')}</div>
+            <span class="badge ${r.status}">${r.status}</span>
+          </div>
+          <div class="ord-total">${Number(r.guests) || '—'} 👤</div>
+        </div>
+        ${r.notes ? `<div class="ord-items">${escapeHtml(r.notes)}</div>` : ''}
+        <div class="ord-actions">
+          ${next}
+          <button class="act danger" onclick="setReservation('${r.id}','cancelled')">Cancel</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function setReservation(id, status) {
+  const pw = localStorage.getItem('gj06_admin_pw');
+  if (!pw) return;
+  if (status === 'cancelled' && !confirm('Cancel this reservation?')) return;
+  try {
+    const res = await fetch('/api/reservations', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
+      body: JSON.stringify({ id, status }),
+    });
+    if (!res.ok) throw new Error('Update failed');
+    loadReservations();
+  } catch (err) {
+    alert('Could not update reservation: ' + err.message);
   }
 }
 
