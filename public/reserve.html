@@ -123,7 +123,7 @@ textarea.fi{resize:vertical;min-height:96px}
     <div class="fg"><label class="fl">Phone Number</label><input class="fi" id="rp" type="tel" placeholder="+61 000 000 000" autocomplete="tel"/></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
       <div class="fg"><label class="fl">Date</label><input class="fi" id="rd" type="date"/></div>
-      <div class="fg"><label class="fl">Time</label><select class="fi" id="rt"><option value="" disabled selected>Pick a time</option><option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option></select></div>
+      <div class="fg"><label class="fl">Time</label><input type="time" class="fi" id="rt" name="rt" min="10:00" max="21:00" required></div>
     </div>
     <div class="fg"><label class="fl">Number of Guests</label><select class="fi" id="rg"><option value="" disabled selected>How many?</option><option value="1">1 — Solo &amp; loving it</option><option value="2">2 — A cozy duo</option><option value="3">3 — A small gang</option><option value="4">4 — Four flat friends</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8+</option></select></div>
     <div class="fg"><label class="fl">Special requests? <span style="opacity:.5;font-weight:400;">(optional)</span></label><textarea class="fi" id="rnotes" placeholder="Allergies, occasion, window seat... we'll try our best ✦"></textarea></div>
