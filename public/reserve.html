@@ -199,18 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 function sw(t) {
   const isR = t==='r';
-  document.getElementById('tr').classList.toggle('ta',isR);
-  document.getElementById('to').classList.toggle('ta',!isR);
-  document.getElementById('fr').classList.toggle('fa',isR);
-  document.getElementById('fo').classList.toggle('fa',!isR);
-  document.getElementById('succ').classList.remove('sh');
+  document.getElementById('tr')?.classList.toggle('ta',isR);
+  document.getElementById('to')?.classList.toggle('ta',!isR);
+  document.getElementById('fr')?.classList.toggle('fa',isR);
+  document.getElementById('fo')?.classList.toggle('fa',!isR);
+  document.getElementById('succ')?.classList.remove('sh');
 }
 function showSucc(title, msg) {
-  document.getElementById('fr').classList.remove('fa');
-  document.getElementById('fo').classList.remove('fa');
-  document.getElementById('st').textContent = title;
-  document.getElementById('sm').innerHTML = msg;
-  document.getElementById('succ').classList.add('sh');
+  document.getElementById('fr')?.classList.remove('fa');
+  document.getElementById('fo')?.classList.remove('fa');
+  document.getElementById('st')?.textContent = title;
+  document.getElementById('sm')?.innerHTML = msg;
+  document.getElementById('succ')?.classList.add('sh');
   window.scrollTo({top:0, behavior:'smooth'});
 }
 async function subR() {
