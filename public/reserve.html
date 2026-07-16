@@ -208,8 +208,8 @@ function sw(t) {
 function showSucc(title, msg) {
   document.getElementById('fr')?.classList.remove('fa');
   document.getElementById('fo')?.classList.remove('fa');
-  document.getElementById('st')?.textContent = title;
-  document.getElementById('sm')?.innerHTML = msg;
+  const stEl=document.getElementById('st'); if(stEl) stEl.textContent = title;
+  const smEl=document.getElementById('sm'); if(smEl) smEl.innerHTML = msg;
   document.getElementById('succ')?.classList.add('sh');
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -238,6 +238,7 @@ async function subO() {
         i=document.getElementById('oi').value.trim();
   if(!n||!p||!tp||!w||!i){alert('Please fill in your name, phone, order type, pickup time, and items!');return;}
   const btn=document.querySelector('#fo .btn');
+  if(!btn)return;
   btn.disabled=true;btn.textContent='Placing order...';
   try{
     const res=await fetch('/api/reservations',{method:'POST',headers:{'Content-Type':'application/json'},
